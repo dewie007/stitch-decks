@@ -10,34 +10,44 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
 --black:#000;--carbon:#1D1C1F;--graphite:#2A2B2C;--steel:#88878C;
---violet:#6E2CFF;--white:#FFF;--platinum:#F2F2F2;--silver:#DFDFDF;
+--violet:#6E2CFF;--violet-text:#A78BFA;--white:#FFF;--platinum:#F2F2F2;--silver:#DFDFDF;
 --titanium:#CBCBCB;--amber:#FF5B00;
 --card-border:rgba(255,255,255,0.06);--card-radius:20px;--card-pad:28px;
 --slide-px:56px;--slide-py:48px;
 }
 html{font-size:16px}
 body{margin:0;background:#000;font-family:'Aeonik','Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+/* Slides */
 .slide{width:1280px;height:720px;margin:0 auto 2px;position:relative;overflow:hidden;padding:var(--slide-py) var(--slide-px);display:grid;grid-template-rows:auto 1fr;background:var(--carbon);color:var(--white)}
-.slide.cover-slide{grid-template-rows:auto 1fr auto;padding:var(--slide-py) var(--slide-px)}
+.slide.cover-slide{grid-template-rows:auto 1fr auto}
+
+/* Cards */
 .card{background:var(--graphite);border:1px solid var(--card-border);border-radius:var(--card-radius);padding:var(--card-pad)}
-.card-warn{border-color:var(--amber);border-width:1px}
-h1,.title{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:300;font-size:36px;line-height:1.15;letter-spacing:-0.02em;color:var(--white)}
+.card-warn{border-color:var(--amber)}
+
+/* Typography */
+h1,.title{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:300;font-size:38px;line-height:1.15;letter-spacing:-0.02em;color:var(--white)}
 h2,.subtitle{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:300;font-size:22px;line-height:1.3;color:var(--steel);margin-top:4px}
 .cover-title{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:200;font-size:52px;line-height:1.1;color:var(--white);align-self:end}
 .cover-sub{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:300;font-size:18px;color:var(--steel);margin-top:12px}
-.stat{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:200;font-size:48px;color:var(--violet);line-height:1}
-.stat-sm{font-size:36px}
-.label{font-size:13px;color:var(--titanium);line-height:1.5;margin-top:8px}
-.label-sm{font-size:12px;color:var(--steel);line-height:1.4}
-.body{font-size:14px;color:var(--titanium);line-height:1.55}
+.stat{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:200;font-size:56px;color:var(--violet-text);line-height:1}
+.stat-sm{font-size:42px}
+.stat-xs{font-size:32px}
+.label{font-size:15px;color:var(--titanium);line-height:1.5;margin-top:8px}
+.label-sm{font-size:13px;color:var(--steel);line-height:1.4}
+.body{font-size:16px;color:var(--titanium);line-height:1.6}
 .body strong{color:var(--white);font-weight:500}
-.warn-text{color:var(--amber);font-size:13px;line-height:1.5}
-.source{font-size:11px;color:var(--steel);margin-top:8px}
-.gap-8{gap:8px}.gap-12{gap:12px}.gap-16{gap:16px}.gap-20{gap:20px}.gap-24{gap:24px}
+.body-lg{font-size:18px;color:var(--titanium);line-height:1.6}
+.body-lg strong{color:var(--white);font-weight:500}
+.warn-text{color:var(--amber);font-size:14px;line-height:1.5}
+.source{font-size:12px;color:var(--steel);margin-top:8px}
+
+/* Utility */
+.gap-8{gap:8px}.gap-12{gap:12px}.gap-16{gap:16px}.gap-20{gap:20px}.gap-24{gap:24px}.gap-32{gap:32px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
 .flex-col{display:flex;flex-direction:column}
-.mt-auto{margin-top:auto}
 
 /* Cover */
 .logo-bar{display:flex;align-items:center;gap:20px}
@@ -47,59 +57,62 @@ h2,.subtitle{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight
 .cover-footer{display:flex;justify-content:space-between;font-size:11px;color:var(--steel);align-self:end}
 
 /* Journey */
-.journey-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
+.journey-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:start}
 .journey-step{text-align:center;position:relative}
-.step-num{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;margin-bottom:8px}
+.step-num{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;margin-bottom:10px}
 .step-num.muted{background:var(--graphite);color:var(--steel);border:1px solid var(--card-border)}
 .step-num.accent{background:var(--violet);color:var(--white)}
-.step-text{font-size:12px;line-height:1.4;color:var(--titanium)}
+.step-text{font-size:14px;line-height:1.45;color:var(--titanium)}
 .step-text strong{color:var(--white);font-weight:500}
-.arrow{position:absolute;right:-18px;top:10px;color:var(--steel);font-size:16px}
+.arrow{position:absolute;right:-20px;top:10px;color:var(--steel);font-size:18px}
 
 /* Bar chart */
-.bar-row{display:grid;grid-template-columns:140px 1fr 60px;align-items:center;gap:12px;margin-bottom:6px}
-.bar-label{font-size:13px;color:var(--titanium);text-align:right}
-.bar-track{height:22px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden}
+.bar-row{display:grid;grid-template-columns:120px 1fr 130px;align-items:center;gap:12px;margin-bottom:6px}
+.bar-label{font-size:14px;color:var(--titanium);text-align:right}
+.bar-track{height:24px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px}
 .bar-fill.violet{background:var(--violet)}
 .bar-fill.amber{background:var(--amber)}
 .bar-fill.steel{background:var(--steel)}
-.bar-val{font-size:13px;color:var(--titanium)}
+.bar-val{font-size:14px;color:var(--titanium)}
 
-/* Bullet lists */
+/* Bullets */
 .bullet-list{list-style:none;padding:0}
-.bullet-list li{font-size:13px;color:var(--titanium);line-height:1.5;padding-left:16px;position:relative;margin-bottom:4px}
-.bullet-list li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--steel)}
+.bullet-list li{font-size:15px;color:var(--titanium);line-height:1.55;padding-left:18px;position:relative;margin-bottom:6px}
+.bullet-list li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--steel)}
 .bullet-list li strong{color:var(--white);font-weight:500}
-.bullet-list.amber li::before{background:var(--amber)}
 .bullet-list.violet li::before{background:var(--violet)}
+.bullet-list.amber li::before{background:var(--amber)}
 
-/* Hypothesis tag */
-.hyp{display:inline-block;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);border:1px solid var(--amber);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+/* Tags */
+.hyp{display:inline-block;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);border:1px solid var(--amber);border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle}
 
-/* Decision cards */
-.decision-num{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:200;font-size:40px;color:var(--violet);line-height:1;margin-bottom:8px}
+/* Proposition */
+.proposition{font-family:'Aeonik','Inter Tight',system-ui,sans-serif;font-weight:300;font-size:32px;line-height:1.35;color:var(--white);max-width:900px}
+.proposition em{font-style:normal;color:var(--violet-text)}
 
-/* Appendix table */
+/* Appendix */
+.appendix-tag{display:inline-block;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:8px}
 .def-table{width:100%;border-collapse:collapse}
-.def-table td{font-size:13px;line-height:1.5;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+.def-table td{font-size:14px;line-height:1.5;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
 .def-table td:first-child{color:var(--white);font-weight:500;width:200px;white-space:nowrap}
 .def-table td:last-child{color:var(--titanium)}
+
+/* Slide number */
+.slide-num{position:absolute;bottom:20px;right:var(--slide-px);font-size:11px;color:var(--steel)}
 
 /* Print */
 @media print{
 body{background:#fff;margin:0;padding:0}
 .slide{page-break-after:always;page-break-inside:avoid;margin:0;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;color-adjust:exact}
 }
-
-/* Slide number */
-.slide-num{position:absolute;bottom:20px;right:var(--slide-px);font-size:11px;color:var(--steel)}
-.appendix-tag{display:inline-block;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:8px}
 </style>
 </head>
 <body>
 
-<!-- SLIDE 1: COVER -->
+<!-- ============================================================ -->
+<!-- SLIDE 1: COVER                                                -->
+<!-- ============================================================ -->
 <section class="slide cover-slide">
   <div class="logo-bar">
     <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjM2MCIgaGVpZ2h0PSIxNTUiIHZpZXdCb3g9IjAgMCAzNjAgMTU1Ij4KPHBhdGggZD0iTTAgMCBDMS4yMDEyMjI0NiAtMC4wMDA0MzgwOCAxLjIwMTIyMjQ2IC0wLjAwMDQzODA4IDIuNDI2NzEyMDQgLTAuMDAwODg1MDEgQzUuMDUwOTQ1NjcgMC4wMDA0OTg3MyA3LjY3NDg4ODc2IDAuMDE2MDE0NSAxMC4yOTkwNzIyNyAwLjAzMTczODI4IEMxMi4xMjc1MjYzIDAuMDM1NDcxODIgMTMuOTU1OTgyMzQgMC4wMzgzMTcxOCAxNS43ODQ0MzkwOSAwLjA0MDMxMzcyIEMyMC41Nzk5MjE0MSAwLjA0NzkyMzM3IDI1LjM3NTI4MTE4IDAuMDY3NTQ4OCAzMC4xNzA3MTUzMyAwLjA4OTcyMTY4IEMzNS4wNzA5MDU5OSAwLjExMDIzNzc0IDM5Ljk3MTExNjU5IDAuMTE5MzI3NzMgNDQuODcxMzM3ODkgMC4xMjkzOTQ1MyBDNTQuNDczNjA1MDYgMC4xNTA3OTczMyA2NC4wNzU3ODE1NyAwLjE4NDkwMDg4IDczLjY3Nzk3ODUyIDAuMjI3MDUwNzggQzczLjY3Nzk3ODUyIDQuNTE3MDUwNzggNzMuNjc3OTc4NTIgOC44MDcwNTA3OCA3My42Nzc5Nzg1MiAxMy4yMjcwNTA3OCBDNzIuNjQ5MjUxMjUgMTMuMjI4NDc1OCA3MS42MjA1MjM5OSAxMy4yMjk5MDA4MiA3MC41NjA2MjMxNyAxMy4yMzEzNjkwMiBDNjAuODY0MDI1MTEgMTMuMjQ4MDQxMjUgNTEuMTY3ODQ2NTkgMTMuMjkwODIxNjggNDEuNDcxNDcwODMgMTMuMzU5MTQxMzUgQzM2LjQ4NjQ1MzI1IDEzLjM5MzQyNjc5IDMxLjUwMTc0MjY0IDEzLjQxODUyMzc1IDI2LjUxNjYwMTU2IDEzLjQyMjYwNzQyIEMyMS43MDUyNTUyMiAxMy40MjY4ODcwMyAxNi44OTQ2MDE1MyAxMy40NTUzMjE2NyAxMi4wODM0NzEzIDEzLjUwMDQ4MjU2IEMxMC4yNDgzMTg3MSAxMy41MTM0NjgzNyA4LjQxMzA4MzI3IDEzLjUxNzc2MTQgNi41Nzc4OTA0IDEzLjUxMzIwNDU3IEM0LjAwNjA4MjMgMTMuNTA4MzA2MTQgMS40MzYzMDQ1NCAxMy41MzQzNTUwMyAtMS4xMzUyNTM5MSAxMy41Njc2MjY5NSBDLTEuODkzMzg4ODIgMTMuNTU5MDAxMzEgLTIuNjUxNTIzNzQgMTMuNTUwMzc1NjcgLTMuNDMyNjMyNDUgMTMuNTQxNDg4NjUgQy03LjQyNjkyMDI3IDEzLjYyODA3MTc2IC05LjE1MTIzMTExIDE0LjA4ODQ0MTA0IC0xMi4yOTQzODc4MiAxNi42MzkzNTg1MiBDLTE0LjgzNDQwNzc1IDE5Ljg4MDk2NDc0IC0xNS4wMDE5MDI0MSAyMS4zNDUzOTg5MSAtMTQuNzU1NjE1MjMgMjUuMjkzNDU3MDMgQy0xNC4wNzM5Njc1NSAyOC4zMzMyMzcyNCAtMTIuNTE5Njk4NjEgMzAuMDk0MDExMjIgLTEwLjMyMjAyMTQ4IDMyLjIyNzA1MDc4IEMtNy44NTEwMTE1NSAzMy40NjI1NTU3NSAtNi4xMzcwMzk4MSAzMy4zOTQyNjI4IC0zLjM3MjU1ODU5IDMzLjQ1MTY2MDE2IEMtMS44MjQ3MDkyNCAzMy40ODU0Mzc2MiAtMS44MjQ3MDkyNCAzMy40ODU0Mzc2MiAtMC4yNDU1OTAyMSAzMy41MTk4OTc0NiBDNC40OTU3MDQzNSAzMy41OTA5NjA5NiA5LjIzNjg0MDMxIDMzLjY0ODQ2OTA5IDEzLjk3ODUxNTYyIDMzLjY4NzAxMTcyIEMxNi40NzQxNTQwNCAzMy43MTM1NzMxMiAxOC45Njk2ODM2NSAzMy43NTQ0NDcwMyAyMS40NjQ4NDM3NSAzMy44MTAwNTg1OSBDMjUuMDY4ODkwOTEgMzMuODg5NDQxODQgMjguNjcwODM5NzYgMzMuOTIyMzY5NTMgMzIuMjc1NjM0NzcgMzMuOTQ1ODAwNzggQzMzLjM4MjIxOTM5IDMzLjk3ODc5MjcyIDM0LjQ4ODgwNDAyIDM0LjAxMTc4NDY3IDM1LjYyODkyMTUxIDM0LjA0NTc3NjM3IEM0Mi43NTY3Njk2MyAzNC4wMjc1MjM1IDQ2LjM0NTQ1NyAzMi42Njg0NTA5NiA1MS42ODA5OTk3NiAyNy45NTc5MDEgQzU3LjE3Njc3NzIxIDIzLjE5NDUyMTU0IDYyLjkyNDE3MDU5IDIyLjc2ODU0MjA1IDY5LjgzMDMyMjI3IDIyLjc5MzQ1NzAzIEM3MC42ODkyODYwNCAyMi43ODgyMTUxOCA3MS41NDgyNDk4MiAyMi43ODI5NzMzMyA3Mi40MzMyNDI4IDIyLjc3NzU3MjYzIEM3NC4yNDA5NjYwMyAyMi43NzExNzk3NyA3Ni4wNDg3MzEwMSAyMi43NzI0NTM3OSA3Ny44NTY0NDUzMSAyMi43ODEwMDU4NiBDODAuNjA0MzU5MDUgMjIuNzg5NTE2MzQgODMuMzUwMTkxNDUgMjIuNzYwNzE2NzUgODYuMDk3OTAwMzkgMjIuNzI5MDAzOTEgQzg3Ljg2Mjg3MzczIDIyLjcyNzM5MTQ5IDg5LjYyNzg1MDcxIDIyLjcyNzk3MDIgOTEuMzkyODIyMjcgMjIuNzMwOTU3MDMgQzkyLjIwNDUyMzc3IDIyLjcxOTcyMzA1IDkzLjAxNjIyNTI4IDIyLjcwODQ4OTA3IDkzLjg1MjUyMzggMjIuNjk2OTE0NjcgQzEwMC40NDI3MDE2NyAyMi43NzY0MTUxOCAxMDUuNTYxMjQ1NTMgMjQuNjU1Mjg2ODIgMTEwLjY2NjI1OTc3IDI4Ljg2NzY3NTc4IEMxMTUuNDQ1OTcwNTcgMzQuNjc2NjQ1ODUgMTE4LjMxOTAwODQ5IDQwLjU2MjgyOTE2IDExNy45NTkyMjg1MiA0OC4yMjMxNDQ1MyBDMTE2Ljk3NjY3MzU4IDU1LjIyMzg0ODQ3IDExMy43NTQ2MjYxMyA2MC4zOTM5Nzk3IDEwOC42Nzc5Nzg1MiA2NS4yMjcwNTA3OCBDMTAzLjA5NTIwNjMgNjkuMjE0NzQ1MjIgOTguMjI1NjkxOTEgNjkuMzcxODc1MzUgOTEuNTEyOTM5NDUgNjkuMzQwNTc2MTcgQzkwLjY5MzA1NTQyIDY5LjM0MDcyMjIgODkuODczMTcxMzkgNjkuMzQwODY4MjMgODkuMDI4NDQyMzggNjkuMzQxMDE4NjggQzg2LjMyMzA1MjM2IDY5LjM0MDMyMjk2IDgzLjYxNzczMTQ5IDY5LjMzMjU0NjUgODAuOTEyMzUzNTIgNjkuMzI0NzA3MDMgQzc5LjAzNDc3MDA4IDY5LjMyMjg0MTY0IDc3LjE1NzE4NjE1IDY5LjMyMTQxODMxIDc1LjI3OTYwMjA1IDY5LjMyMDQxOTMxIEM3MC4zNDEwOTE0NCA2OS4zMTY2MDM2NyA2NS40MDI2MTAzIDY5LjMwNjc4MTQ5IDYwLjQ2NDExMTMzIDY5LjI5NTcxNTMzIEM1NS40MjM0MjUyOCA2OS4yODU0ODA3NSA1MC4zODI3MzQ0NiA2OS4yODA5MTczIDQ1LjM0MjA0MTAyIDY5LjI3NTg3ODkxIEMzNS40NTQwMDcyNCA2OS4yNjUxNTgzOSAyNS41NjU5OTUzMyA2OS4yNDgwOTMzOCAxNS42Nzc5Nzg1MiA2OS4yMjcwNTA3OCBDMTUuNjc3OTc4NTIgNjUuMjY3MDUwNzggMTUuNjc3OTc4NTIgNjEuMzA3MDUwNzggMTUuNjc3OTc4NTIgNTcuMjI3MDUwNzggQzE2LjY3OTQyOTAyIDU3LjIyMTE4NDU0IDE3LjY4MDg3OTUyIDU3LjIxNTMxODMgMTguNzEyNjc3IDU3LjIwOTI3NDI5IEMyOC4xNTg3Mjk1OCA1Ny4xNTIwMTY0OSAzNy42MDQ1NTI2MiA1Ny4wNzkyMzg4MyA0Ny4wNTAzNzExNyA1Ni45OTEzMzU4NyBDNTEuOTA2MzY2NTggNTYuOTQ2NjQyODEgNTYuNzYyMjc4MjkgNTYuOTA3Mzg0MjggNjEuNjE4NDA4MiA1Ni44ODA2MTUyMyBDNjYuMzA2NDM2OTQgNTYuODU0NTcxNzIgNzAuOTk0MTQzNDQgNTYuODE0MTYxNzYgNzUuNjgxOTcyNSA1Ni43NjM4NjQ1MiBDNzcuNDY4ODUwMzIgNTYuNzQ3MjAyOTIgNzkuMjU1NzgzODYgNTYuNzM1Njg0MjQgODEuMDQyNzI4NDIgNTYuNzI5NDM2ODcgQzgzLjU0OTI1NDIyIDU2LjcxOTc4ODA1IDg2LjA1NDk1NjkzIDU2LjY5MTcyMDAzIDg4LjU2MTI3OTMgNTYuNjU5NDIzODMgQzg5LjI5NzExNzQ2IDU2LjY2MDg1ODkyIDkwLjAzMjk1NTYzIDU2LjY2MjI5NDAxIDkwLjc5MTA5MTkyIDU2LjY2Mzc3MjU4IEM5NS40NjY3MzE1NiA1Ni41Nzg3ODUxNiA5OC42OTk4MDc1MiA1NS42ODczOTkzOCAxMDIuNjc3OTc4NTIgNTMuMjI3MDUwNzggQzEwNC42MTE2NDI5NSA1MC4xNDkyNDU4IDEwNC45OTczMTM0OSA0Ni43NjEwNTI0NSAxMDQuMjYwMDA5NzcgNDMuMjE5MjM4MjggQzEwMy4yNTgwNTA3NiA0MC41NzMxODA3OSAxMDIuMjgzNzkzNTUgMzguNjIzODU0MzcgOTkuODg1MzE0OTQgMzcuMDUyODcxNyBDOTcuMzAyMzk4MDIgMzYuMDg2NTM2NTMgOTUuMjQyNTA5MDEgMzUuOTM5NTA3NjEgOTIuNDg1NTk1NyAzNS44ODg5MTYwMiBDOTEuNDUwNjE5NTEgMzUuODY2NDczMjQgOTAuNDE1NjQzMzEgMzUuODQ0MDMwNDYgODkuMzQ5MzA0MiAzNS44MjA5MDc1OSBDODguMjM1NzM1NDcgMzUuODA5MjcwNzggODcuMTIyMTY2NzUgMzUuNzk3NjMzOTcgODUuOTc0ODUzNTIgMzUuNzg1NjQ0NTMgQzg0LjgyMzA5NjMxIDM1Ljc3MTg3MjcxIDgzLjY3MTMzOTExIDM1Ljc1ODEwMDg5IDgyLjQ4NDY4MDE4IDM1Ljc0MzkxMTc0IEM4MC4wNDcwNDU5IDM1LjcyMDY0MDcgNzcuNjA5MzQ4MDIgMzUuNzAzMzc0ODIgNzUuMTcxNjMwODYgMzUuNjkxNjUwMzkgQzcxLjQ1NTEwNzk0IDM1LjY2NDc0NzE3IDY3Ljc0MTQzOTk5IDM1LjU4OTgzNjk2IDY0LjAyNTYzNDc3IDM1LjUxNDE2MDE2IEM2MS42NTQ1NjAxMyAzNS40OTc1MDA0IDU5LjI4MzQ2MzAzIDM1LjQ4MzczNDgyIDU2LjkxMjM1MzUyIDM1LjQ3MzE0NDUzIEM1NS44MDY4ODE3MSAzNS40NDMyODk2NCA1NC43MDE0MDk5MSAzNS40MTM0MzQ3NSA1My41NjI0Mzg5NiAzNS4zODI2NzUxNyBDNDcuODc2NzM5NSAzNS40MTQ4NDE3NyA0NC40ODIwNzMwNSAzNS44MDkwNDU0OSA0MC4xNDM3OTg4MyAzOS42NTY5ODI0MiBDMzkuNTU0NDc1NzEgNDAuMjc4MTE0MTcgMzguOTY1MTUyNTkgNDAuODk5MjQ1OTEgMzguMzU3OTcxMTkgNDEuNTM5MTk5ODMgQzMxLjQ5MTY1NDg3IDQ4LjQzNzYzMzggMjAuNTE1NTU5OTYgNDcuNDQyMzY1MDEgMTEuNTUwNTM3MTEgNDcuNDY3Mjg1MTYgQzkuNDQ4MDc4NzUgNDcuNDc2OTU4MyA3LjM0NjYxMjkyIDQ3LjUwODAwNTA0IDUuMjQ0Mzg0NzcgNDcuNTM5NTUwNzggQy00LjgxNTg0Nzg4IDQ3LjYxODY1NzA5IC0xMy4zMDk0MzExOSA0Ni43ODI4MDY0OCAtMjEuMzIyMDIxNDggNDAuMjI3MDUwNzggQy0yNy40Mjg0MTY0NiAzMi45OTUzNTgwOSAtMjguMDg4NzI2ODMgMjYuNTk0MTkgLTI3LjMyMjAyMTQ4IDE3LjIyNzA1MDc4IEMtMjUuNjQ1MDk5OTYgMTAuNzAwOTQyMTYgLTIwLjk0MDQyMTM0IDUuNzY4NDYxMjUgLTE1LjMyMjAyMTQ4IDIuMjI3MDUwNzggQy0xMC4xNDk1MTM5MiAwLjQ0NDc4MzQxIC01LjQyMzc5NTY1IC0wLjA1MjU4OTU2IDAgMCBaICIgZmlsbD0iI0ZGRkZGRiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjcuMzIyMDIxNDg0Mzc1LDQyLjc3Mjk0OTIxODc1KSIvPgo8cGF0aCBkPSJNMCAwIEMyLjY0IDAgNS4yOCAwIDggMCBDOC4zMyA1LjI4IDguNjYgMTAuNTYgOSAxNiBDMTAuOTggMTQuNjggMTIuOTYgMTMuMzYgMTUgMTIgQzIwLjY4MzkyMjEyIDEwLjEwNTM1OTI5IDI2Ljc2NzQ3MjMxIDEwLjEwNjk5Mzc1IDMyLjMxMjUgMTIuNSBDMzYuNzM0NTk0NjkgMTUuMjM3NDU4NjcgMzkuMjM4MDY5NSAxOC4wNTUxMzA3MSA0MSAyMyBDNDEuNjA5MTk0OTQgMjkuMDE1MDA2MjkgNDEuNDcyMzU4MTggMzQuOTYzOTk2NCA0MS4zMTI1IDQxIEM0MS4yODczODY2MiA0Mi42NDk3MDU4IDQxLjI2NDU3ODgxIDQ0LjI5OTQ0ODQgNDEuMjQ0MTQwNjIgNDUuOTQ5MjE4NzUgQzQxLjE4OTM4MjI5IDQ5Ljk2NzA2MzE2IDQxLjEwMzI4MjA3IDUzLjk4MzEyMTk4IDQxIDU4IEMzOC4zNiA1OCAzNS43MiA1OCAzMyA1OCBDMzIuOTcwMjcxIDU2LjYzODUwODMgMzIuOTcwMjcxIDU2LjYzODUwODMgMzIuOTM5OTQxNDEgNTUuMjQ5NTExNzIgQzMyLjg2MTU0MzMzIDUxLjg2MTA2ODgzIDMyLjc3NDg0MDggNDguNDczMDQ0OTggMzIuNjgyNjE3MTkgNDUuMDg0OTYwOTQgQzMyLjY0NDQ4Nzk0IDQzLjYyMjQ3ODExIDMyLjYwOTYwNzg2IDQyLjE1OTkwNjYyIDMyLjU3ODEyNSA0MC42OTcyNjU2MiBDMzIuNTMyMTIyODkgMzguNTg2OTE4NjggMzIuNDc0MTkwNTkgMzYuNDc3MTczNjYgMzIuNDE0MDYyNSAzNC4zNjcxODc1IEMzMi4zODI2NDE2IDMzLjA5OTg3NzkzIDMyLjM1MTIyMDcgMzEuODMyNTY4MzYgMzIuMzE4ODQ3NjYgMzAuNTI2ODU1NDcgQzMyLjAwMDU4MDgxIDI3LjAwNjQyNDUzIDMxLjQ0MDUwNDc2IDI0LjIyNjc1NDg4IDMwIDIxIEMyNS4zNjI3NzEwMyAxOS40NTQyNTcwMSAyMC44Mzc5NTE3NiAxOS4zODM3NDU1MyAxNiAyMCBDMTIuMDg0NTY2MTMgMjIuNjM2OTI0ODUgMTAuNjMwNzA0MTggMjUuMTk5NTc0NTQgOS40MTcyMzYzMyAyOS43MDE0MTYwMiBDOC40NzY1NDM2NCAzNC44ODM3NTc1MyA4LjUxMjU1NDQ1IDQwLjE4NDYzOTM2IDguMzc1IDQ1LjQzNzUgQzguMzE2OTkyMTkgNDcuMjUwMjQ0MTQgOC4zMTY5OTIxOSA0Ny4yNTAyNDQxNCA4LjI1NzgxMjUgNDkuMDk5NjA5MzggQzguMTY0MDA1NDIgNTIuMDY2MjU4MTcgOC4wNzgzMDc1NCA1NS4wMzI5MDgzNiA4IDU4IEM1LjM2IDU4IDIuNzIgNTggMCA1OCBDMCAzOC44NiAwIDE5LjcyIDAgMCBaICIgZmlsbD0iI0ZGRkZGRiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzE5LDQzKSIvPgo8cGF0aCBkPSJNMCAwIEMzLjYxOTU0OTAxIDIuMTM3MTE0MTggNS42MDUzNDkzNCA0LjU4NTY5ODY4IDcuNSA4LjM3NSBDOC4yNSAxMS43NSA4LjI1IDExLjc1IDguNSAxNC4zNzUgQzUuNDI2NTc1OTcgMTQuMzA0MTI0MzkgMi40ODg2ODY1MSAxNC4xMjM1MDgyNSAtMC41IDEzLjM3NSBDLTIuMjUgMTAuOTM3NSAtMi4yNSAxMC45Mzc1IC0zLjUgOC4zNzUgQy03LjQzNjMxMzI3IDUuODI3OTczNzcgLTExLjA0OTY4MjMxIDYuMzgwNjc3OTggLTE1LjUxMTcxODc1IDYuODkwNjI1IEMtMTcuNzE2ODM1MTIgNy4yNDU0MDM2NyAtMTcuNzE2ODM1MTIgNy4yNDU0MDM2NyAtMTkuNSA5LjM3NSBDLTE5LjY2Njg3NDQ4IDExLjk1ODU0MjE4IC0xOS42NjY4NzQ0OCAxMS45NTg1NDIxOCAtMTkuNSAxNC4zNzUgQy0xNC42Njk2MTAzIDE2LjU4Nzc1MTYyIC05LjY4NzE0OTY4IDE3LjI3MDI5NjU0IC00LjQ3MDcwMzEyIDE3Ljk2Njc5Njg4IEMwLjg3Nzg1OTUzIDE4LjgzMzcyMDMgMy42Mjg2OTQ5MSAyMC41NjgwMjE3MyA3LjUgMjQuMzc1IEM5LjM2OTMzMzA2IDI3LjQ2MzQ2MzMxIDkuNTAzNDk5ODkgMjkuMTgyNTA1ODIgOS40Mzc1IDMyLjgxMjUgQzguMDM2NDI5NjUgMzguMTM2NTY3MzIgNS40NjM3MDM0NSA0MS4xOTkwMTI1OCAwLjc1MzkwNjI1IDQ0LjAxOTUzMTI1IEMtNS4zODMzMzcxNyA0Ni41NzYxMDIwNCAtMTIuNjY1ODk0MTYgNDYuNDY4Nzc4NjYgLTE5LjA0Njg3NSA0NC42NDg0Mzc1IEMtMjMuMjAwNTUzNiA0Mi43Mjc3NTE1MyAtMjYuMTY3NzkyMTcgNDAuMzg2Mzk3NDggLTI4LjUgMzYuMzc1IEMtMjkuMjUgMzIuNTYyNSAtMjkuMjUgMzIuNTYyNSAtMjkuNSAyOS4zNzUgQy0yNi44NiAyOS4zNzUgLTI0LjIyIDI5LjM3NSAtMjEuNSAyOS4zNzUgQy0yMS4xMDgxMjUgMzAuMzIzNzUgLTIwLjcxNjI1IDMxLjI3MjUgLTIwLjMxMjUgMzIuMjUgQy0xOC43OTM3MDUzMyAzNS40MjcwODUyNSAtMTguNzkzNzA1MzMgMzUuNDI3MDg1MjUgLTE2LjMxMjUgMzYuNzUgQy0xMC45Njg0MTA5NCAzNy45Mzc1NzUzNSAtNS44MTA4Mjg3MyAzNy43MDI3MDcxOCAtMC41IDM2LjM3NSBDLTAuNSAzMy43MzUgLTAuNSAzMS4wOTUgLTAuNSAyOC4zNzUgQy00LjI0MTc3NDA5IDI3LjQyMTIxNDQ1IC03Ljk3MzQ5MDE3IDI2LjQ4NzY0MjczIC0xMS43NSAyNS42Nzk2ODc1IEMtMTIuODg0Mzc1IDI1LjQzNDc2NTYyIC0xNC4wMTg3NSAyNS4xODk4NDM3NSAtMTUuMTg3NSAyNC45Mzc1IEMtMTYuMjYzODY3MTkgMjQuNzExOTE0MDYgLTE3LjM0MDIzNDM3IDI0LjQ4NjMyODEyIC0xOC40NDkyMTg3NSAyNC4yNTM5MDYyNSBDLTIyLjIwODM4OTE0IDIzLjE3MDkxODYyIC0yNS4zNzIzNDQyOSAyMS44MjQ4NDMwNiAtMjcuODEyNSAxOC42ODc1IEMtMjkuMzEwNzY4NTYgMTMuNjQ3ODY5NCAtMjkuMTYzNTU5NzEgOS44MTI3MTI3MSAtMjcgNS4xMjUgQy0yMC4wNDMyNTY3NyAtMi41Mjc0MTc1NSAtOS41MDgzNTcyMiAtNC4yMjE5OTQ0NCAwIDAgWiAiIGZpbGw9IiNGRkZGRkYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5MC41LDU1LjYyNSkiLz4KPHBhdGggZD0iTTAgMCBDNC4xNzgxODU2NyAzLjI3NTA0MDc0IDcuMTc4NDUwMDggNy4zMDg4MTU0NiA4LjY2NDA2MjUgMTIuNDAyMzQzNzUgQzguNzA1MzEyNSAxMy4wNjIzNDM3NSA4Ljc0NjU2MjUgMTMuNzIyMzQzNzUgOC43ODkwNjI1IDE0LjQwMjM0Mzc1IEM1LjgxOTA2MjUgMTQuNDAyMzQzNzUgMi44NDkwNjI1IDE0LjQwMjM0Mzc1IC0wLjIxMDkzNzUgMTQuNDAyMzQzNzUgQy0wLjY0NDA2MjUgMTMuNDUzNTkzNzUgLTEuMDc3MTg3NSAxMi41MDQ4NDM3NSAtMS41MjM0Mzc1IDExLjUyNzM0Mzc1IEMtMy4wMDM5NTk1MSA4LjIwMTkyNDM4IC0zLjAwMzk1OTUxIDguMjAxOTI0MzggLTYuMjEwOTM3NSA2LjQwMjM0Mzc1IEMtMTEuNzk5MzAyIDUuNjQ2MDgzNiAtMTYuNjI4OTk1MTEgNS4yOTQ5ODQwOCAtMjEuMzM1OTM3NSA4LjU4OTg0Mzc1IEMtMjUuMDM1MDM3NTQgMTQuMTM4NDkzODEgLTI2LjA4MTA0Mjg0IDE4Ljc4MjkzNDc1IC0yNS4yMTA5Mzc1IDI1LjQwMjM0Mzc1IEMtMjMuODI1NjI3NSAzMC4xODg3MTQyNSAtMjIuMjAyNjM5NjIgMzIuNzcyOTk0MzMgLTE3Ljk2MDkzNzUgMzUuNDY0ODQzNzUgQy0xMy42NzM0MTQwNCAzNi41MzY3MjQ2MSAtMTAuNDEzMjk5NDggMzYuODY0ODAwOTYgLTYuMjEwOTM3NSAzNS40MDIzNDM3NSBDLTMuMDMyMzEzNCAzMi44MzIzOTIzNSAtMS41MDM2NTY0MSAzMS4yODA1MDA0OCAtMC4yMTA5Mzc1IDI3LjQwMjM0Mzc1IEMyLjc1OTA2MjUgMjcuNDAyMzQzNzUgNS43MjkwNjI1IDI3LjQwMjM0Mzc1IDguNzg5MDYyNSAyNy40MDIzNDM3NSBDNy41ODQ5MDYwMiAzMy4zMDI3MTA1IDUuMzk2NDc4MjQgMzcuNDI1MDAxOTYgMC43ODkwNjI1IDQxLjQwMjM0Mzc1IEMtNS42ODc4NTg4MSA0NS4zMDY3NDEzOCAtMTEuODM2NjA4NzkgNDUuMjk1NjkxIC0xOS4yMTA5Mzc1IDQ0LjQwMjM0Mzc1IEMtMjUuNjc0MzM1MzIgNDIuMDUwMTg5NjQgLTMwLjI5Nzk1NDMxIDM3LjAzNzAxMTgxIC0zMy40NjA5Mzc1IDMxLjAyNzM0Mzc1IEMtMzUuODcyNjM1MTMgMjIuNTg2NDAyMDUgLTM1LjYwNTIzNjU4IDE0LjkzNDQwOTg2IC0zMS40NjA5Mzc1IDcuMDg5ODQzNzUgQy0yMy41NDI1NzE5OSAtMi4zNjgyMDM5NCAtMTEuMzA1ODEwMTQgLTYuNTM2ODk4NDUgMCAwIFogIiBmaWxsPSIjRkZGRkZGIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDcuMjEwOTM3NSw1Ni41OTc2NTYyNSkiLz4KPHBhdGggZD0iTTAgMCBDMi42NCAwIDUuMjggMCA4IDAgQzggMy42MyA4IDcuMjYgOCAxMSBDMTEuOTYgMTEgMTUuOTIgMTEgMjAgMTEgQzIwIDEzLjY0IDIwIDE2LjI4IDIwIDE5IEMxNi4wNCAxOSAxMi4wOCAxOSA4IDE5IEM4IDI5LjIzIDggMzkuNDYgOCA1MCBDMTIuMjkgNTAgMTYuNTggNTAgMjEgNTAgQzIxIDUyLjY0IDIxIDU1LjI4IDIxIDU4IEMxOS4xMDQ0ODk3OCA1OC4wNTQ0MTY1NiAxNy4yMDg1MjA4IDU4LjA5Mjk4MDM1IDE1LjMxMjUgNTguMTI1IEMxNC4yNTY3NTc4MSA1OC4xNDgyMDMxMyAxMy4yMDEwMTU2MiA1OC4xNzE0MDYyNSAxMi4xMTMyODEyNSA1OC4xOTUzMTI1IEM3LjYxMzYyMjcgNTcuOTEzMDI1MjYgNS4wOTU0MjkwNyA1Ny4wOTA2NDE2OCAxLjg3NzE5NzI3IDUzLjg4NjQ3NDYxIEMtMC41MjgyMDY5MyA1MC4xODc4MDE5OSAtMC40NjA1NDA3NyA0Ny44OTg5MzMxOSAtMC4zOTA2MjUgNDMuNTExNzE4NzUgQy0wLjM4NDk2NTIxIDQyLjgwODUyMDA1IC0wLjM3OTMwNTQyIDQyLjEwNTMyMTM1IC0wLjM3MzQ3NDEyIDQxLjM4MDgxMzYgQy0wLjM1MTE5NzY5IDM5LjE0ODk5NzUyIC0wLjMwMTAyMzczIDM2LjkxODgyNTM5IC0wLjI1IDM0LjY4NzUgQy0wLjIyOTkyMzQzIDMzLjE2ODY0MzA5IC0wLjIxMTY3NDY4IDMxLjY0OTc2MDg0IC0wLjE5NTMxMjUgMzAuMTMwODU5MzggQy0wLjE1MTM2MzU3IDI2LjQyMDA0NDU1IC0wLjA4MjM5OTIxIDIyLjcxMDE4MjkgMCAxOSBDLTIuNjQgMTkgLTUuMjggMTkgLTggMTkgQy04IDE2LjM2IC04IDEzLjcyIC04IDExIEMtNS4zNiAxMSAtMi43MiAxMSAwIDExIEMwIDcuMzcgMCAzLjc0IDAgMCBaICIgZmlsbD0iI0ZGRkZGRiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjA4LDQzKSIvPgo8cGF0aCBkPSJNMCAwIEMyLjY0IDAgNS4yOCAwIDggMCBDOCAzLjYzIDggNy4yNiA4IDExIEMxMS45NiAxMSAxNS45MiAxMSAyMCAxMSBDMjAgMTMuNjQgMjAgMTYuMjggMjAgMTkgQzE2LjA0IDE5IDEyLjA4IDE5IDggMTkgQzggMjkuMjMgOCAzOS40NiA4IDUwIEMxMi4yOSA1MCAxNi41OCA1MCAyMSA1MCBDMjEgNTIuNjQgMjEgNTUuMjggMjEgNTggQzcuODA5NDg2MTcgNTguNTc2Mjg0NTggNy44MDk0ODYxNyA1OC41NzYyODQ1OCAzIDU1IEMtMC4xMTA3ODU0IDUwLjg4OTkzMzQ3IC0wLjM1NTgwMTUyIDQ3LjgxOTkyMjc4IC0wLjI5Mjk2ODc1IDQyLjczMDQ2ODc1IEMtMC4yODg3MjM5MSA0Mi4wNDk0NjYwOSAtMC4yODQ0NzkwNiA0MS4zNjg0NjM0NCAtMC4yODAxMDU1OSA0MC42NjY4MjQzNCBDLTAuMjYzNDA2MSAzOC41MDY2MzU0MSAtMC4yMjU3NzMxMiAzNi4zNDc0MDM1OCAtMC4xODc1IDM0LjE4NzUgQy0wLjE3MjQ0MTc0IDMyLjcxNjgxMDQyIC0wLjE1ODc1NTM0IDMxLjI0NjEwNjExIC0wLjE0NjQ4NDM4IDI5Ljc3NTM5MDYyIEMtMC4xMTM1MzIxNCAyNi4xODMyODY0MyAtMC4wNjE4MTE3MyAyMi41OTE3MzY3NCAwIDE5IEMtMi42NCAxOSAtNS4yOCAxOSAtOCAxOSBDLTggMTYuMzYgLTggMTMuNzIgLTggMTEgQy01LjM2IDExIC0yLjcyIDExIDAgMTEgQzAgNy4zNyAwIDMuNzQgMCAwIFogIiBmaWxsPSIjRkZGRkZGIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNTIsNDMpIi8+CjxwYXRoIGQ9Ik0wIDAgQzIuNjQgMCA1LjI4IDAgOCAwIEM4IDE1LjUxIDggMzEuMDIgOCA0NyBDNS4wMyA0NyAyLjA2IDQ3IC0xIDQ3IEMtMS4wMjQ2NDM0NyA0MC40NjcyMDY2MSAtMS4wNDI4MzI5MSAzMy45MzQ0NDAwMiAtMS4wNTQ5MzE2NCAyNy40MDE2MTEzMyBDLTEuMDU5OTczMTcgMjUuMTc3MzIyNjggLTEuMDY2ODA2MjMgMjIuOTUzMDM3MzcgLTEuMDc1NDM5NDUgMjAuNzI4NzU5NzcgQy0xLjA4NzUxMjk4IDE3LjUzOTIxNjkxIC0xLjA5MzIyOTk2IDE0LjM0OTcxNzcxIC0xLjA5NzY1NjI1IDExLjE2MDE1NjI1IEMtMS4xMDI4MTc1NCAxMC4xNTkxMjM2OSAtMS4xMDc5Nzg4MiA5LjE1ODA5MTEzIC0xLjExMzI5NjUxIDguMTI2NzI0MjQgQy0xLjExMzM3MjA0IDcuMjA1ODQ1MTggLTEuMTEzNDQ3NTcgNi4yODQ5NjYxMyAtMS4xMTM1MjUzOSA1LjMzNjE4MTY0IEMtMS4xMTU3NDYgNC41MjEyMTcxOSAtMS4xMTc5NjY2MSAzLjcwNjI1Mjc1IC0xLjEyMDI1NDUyIDIuODY2NTkyNDEgQy0xIDEgLTEgMSAwIDAgWiAiIGZpbGw9IiNGRkZGRkYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMiw1NCkiLz4KPHBhdGggZD0iTTAgMCBDMi45NyAwIDUuOTQgMCA5IDAgQzkgMi45NyA5IDUuOTQgOSA5IEMyLjg0NzY1NjI1IDkuMDk3NjU2MjUgMi44NDc2NTYyNSA5LjA5NzY1NjI1IDEgOSBDMCA4IDAgOCAtMC4wOTc2NTYyNSA2LjE1MjM0Mzc1IEMtMC4wNjUxMDQxNyA0LjEwMTU2MjUgLTAuMDMyNTUyMDggMi4wNTA3ODEyNSAwIDAgWiAiIGZpbGw9IiNGRkZGRkYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMSw0MykiLz4KPC9zdmc+Cg==" alt="Stitch">
@@ -117,510 +130,326 @@ body{background:#fff;margin:0;padding:0}
   </div>
 </section>
 
-<!-- SLIDE 2: WHAT WE KNOW -->
+<!-- ============================================================ -->
+<!-- SLIDE 2: THE PROBLEM                                          -->
+<!-- ============================================================ -->
 <section class="slide">
   <div>
-    <h1>What we know</h1>
-    <h2>Two data sources, not yet linked</h2>
+    <h1>The problem</h1>
+    <h2>Settling arrears leaves the recurring payment issue unresolved</h2>
   </div>
-  <div style="display:grid;grid-template-rows:1fr auto;gap:16px;padding-top:28px">
-    <div class="grid-2">
-      <!-- Pay@ volumes -->
-      <div class="card flex-col gap-16">
-        <div style="font-size:14px;color:var(--steel);text-transform:uppercase;letter-spacing:0.08em;font-weight:500">Pay@ payment volumes</div>
-        <div>
-          <div class="stat">R 153.44M</div>
-          <div class="label">Total Pay@ value, July 2026</div>
+  <div style="display:grid;grid-template-rows:1fr auto;gap:24px;padding-top:32px">
+    <!-- Journey: current state -->
+    <div>
+      <div style="font-size:13px;color:var(--steel);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px">What happens today</div>
+      <div class="journey-row">
+        <div class="journey-step">
+          <div class="step-num muted">1</div><div class="arrow">→</div>
+          <div class="step-text"><strong>Collection fails</strong><br>Card token declined on batch run</div>
         </div>
-        <div>
-          <div class="stat stat-sm">R 90.91M</div>
-          <div class="label">Via methods Stitch supports</div>
-          <div class="label-sm" style="margin-top:4px">Capitec Pay R 72.2M · Card R 17.6M · ABSA Pay R 1.1M</div>
+        <div class="journey-step">
+          <div class="step-num muted">2</div><div class="arrow">→</div>
+          <div class="step-text"><strong>Comms sent</strong><br>SMS/WhatsApp with Pay@ link</div>
         </div>
-        <div class="warn-text" style="margin-top:auto">⚠ These are payment volumes, not arrears recovered or incremental revenue</div>
-        <div class="source">Source: Rain Pay@ extract, July 2026</div>
-      </div>
-      <!-- Collection outcomes -->
-      <div class="card flex-col gap-16">
-        <div style="font-size:14px;color:var(--steel);text-transform:uppercase;letter-spacing:0.08em;font-weight:500">Card collection outcomes</div>
-        <div>
-          <div class="stat">626K</div>
-          <div class="label">Card tokens attempted per month</div>
-          <div class="label-sm" style="margin-top:2px">Not unique customers - one customer may hold multiple tokens</div>
+        <div class="journey-step">
+          <div class="step-num muted">3</div><div class="arrow">→</div>
+          <div class="step-text"><strong>Customer pays</strong><br>One-time payment via Pay@</div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-          <div>
-            <div class="stat stat-sm" style="color:var(--violet)">305K</div>
-            <div class="label">Collected (49%)</div>
-          </div>
-          <div>
-            <div class="stat stat-sm" style="color:var(--amber)">321K</div>
-            <div class="label">Failed (51%)</div>
-          </div>
+        <div class="journey-step">
+          <div class="step-num muted">4</div><div class="arrow">→</div>
+          <div class="step-text"><strong>Balance cleared</strong><br>But card on file is unchanged</div>
         </div>
-        <div class="warn-text" style="margin-top:auto">⚠ Cannot distinguish unique customers from card tokens without Rain billing data</div>
-        <div class="source">Source: Stitch collection data, July 2026</div>
+        <div class="journey-step">
+          <div class="step-num muted">5</div>
+          <div class="step-text"><strong style="color:var(--amber)">Next cycle fails again</strong><br>Same broken card retried</div>
+        </div>
       </div>
     </div>
-    <!-- Evidence gap -->
-    <div class="card card-warn" style="padding:16px 24px">
-      <div style="font-size:13px;color:var(--amber);font-weight:500;margin-bottom:4px">Evidence gap</div>
-      <div style="font-size:13px;color:var(--titanium);line-height:1.5">Pay@ billing IDs are not matched to collection records. We do not know how many Pay@ payers overlap with the failed-token population, how many are intentional manual payers, or how many simply lack a working card.</div>
+    <!-- Supporting numbers -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+      <div class="card" style="padding:20px 24px">
+        <div class="stat" style="font-size:44px">49%</div>
+        <div class="label">Card collection success rate</div>
+        <div class="source">626K tokens attempted/month - Stitch collection data, Jul 2026</div>
+      </div>
+      <div class="card" style="padding:20px 24px">
+        <div class="stat" style="font-size:44px;color:var(--amber)">69%</div>
+        <div class="label">Of failures are insufficient funds</div>
+        <div class="source">Not a card problem - a timing and balance problem. Stitch data, Jul 2026</div>
+      </div>
+      <div class="card" style="padding:20px 24px">
+        <div class="stat" style="font-size:44px">R 153M</div>
+        <div class="label">Flows through Pay@ monthly</div>
+        <div class="source">R 91M via methods Stitch supports. Rain Pay@ extract, Jul 2026</div>
+      </div>
     </div>
   </div>
   <div class="slide-num">2</div>
 </section>
 
-<!-- SLIDE 3: FAILURE CAUSES & INTERVENTIONS -->
+<!-- ============================================================ -->
+<!-- SLIDE 3: THE OPPORTUNITY                                      -->
+<!-- ============================================================ -->
 <section class="slide">
   <div>
-    <h1>Failure causes and matched interventions</h1>
-    <h2>Each cause requires a different response</h2>
+    <h1>The opportunity</h1>
+    <h2>Let customers pay and update their payment details in one step</h2>
   </div>
-  <div style="display:grid;grid-template-rows:auto 1fr;gap:20px;padding-top:24px">
-    <!-- Bar chart -->
-    <div style="padding:0 8px">
-      <div class="bar-row">
-        <div class="bar-label">Insufficient funds</div>
-        <div class="bar-track"><div class="bar-fill amber" style="width:69%"></div></div>
-        <div class="bar-val" style="color:var(--amber);font-weight:500">69%</div>
+  <div style="display:grid;grid-template-rows:1fr auto;gap:24px;padding-top:32px">
+    <!-- Journey: proposed -->
+    <div>
+      <div style="font-size:13px;color:var(--violet-text);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px">Proposed flow</div>
+      <div class="journey-row">
+        <div class="journey-step">
+          <div class="step-num accent">1</div><div class="arrow" style="color:var(--violet-text)">→</div>
+          <div class="step-text"><strong>Collection fails</strong><br>Same as today</div>
+        </div>
+        <div class="journey-step">
+          <div class="step-num accent">2</div><div class="arrow" style="color:var(--violet-text)">→</div>
+          <div class="step-text"><strong>Stitch link sent</strong><br>Personalised amount via existing comms</div>
+        </div>
+        <div class="journey-step">
+          <div class="step-num accent">3</div><div class="arrow" style="color:var(--violet-text)">→</div>
+          <div class="step-text"><strong>Customer pays + updates method</strong><br>Card refresh <em>or</em> VRP consent in one interaction</div>
+        </div>
+        <div class="journey-step">
+          <div class="step-num accent">4</div><div class="arrow" style="color:var(--violet-text)">→</div>
+          <div class="step-text"><strong>Balance cleared + token stored</strong><br>Rain applies new details to billing</div>
+        </div>
+        <div class="journey-step">
+          <div class="step-num accent">5</div>
+          <div class="step-text"><strong style="color:var(--violet-text)">Next cycle collects on new token</strong><br>Recurring payment repaired</div>
+        </div>
       </div>
-      <div class="bar-row">
-        <div class="bar-label">Auth failed</div>
-        <div class="bar-track"><div class="bar-fill steel" style="width:12%"></div></div>
-        <div class="bar-val">12%</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Expired card</div>
-        <div class="bar-track"><div class="bar-fill steel" style="width:5%"></div></div>
-        <div class="bar-val">5%</div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Other</div>
-        <div class="bar-track"><div class="bar-fill steel" style="width:14%"></div></div>
-        <div class="bar-val">14%</div>
-      </div>
-      <div class="source" style="margin-top:2px">Source: Stitch collection data, July 2026</div>
     </div>
-    <!-- Intervention cards -->
-    <div class="grid-3" style="align-self:end">
-      <div class="card flex-col gap-8" style="padding:20px 24px">
-        <div style="font-size:15px;color:var(--amber);font-weight:500">Insufficient funds (69%)</div>
-        <div class="body"><strong>Cause:</strong> Balance too low when batch runs</div>
-        <div class="body"><strong>Intervention:</strong> Better-timed collection, split payments, or alternative funding method</div>
-        <div class="warn-text" style="margin-top:auto;font-size:12px">Card refresh won't help here - this is a timing/balance problem</div>
-      </div>
-      <div class="card flex-col gap-8" style="padding:20px 24px">
-        <div style="font-size:15px;color:var(--white);font-weight:500">Invalid/expired (17%)</div>
-        <div class="body"><strong>Cause:</strong> Card expired, auth blocked, or stale token</div>
-        <div class="body"><strong>Intervention:</strong> Card refresh link via Stitch - customer updates payment method</div>
-        <div class="label-sm" style="margin-top:auto">ABU imported 2,817 Mastercard replacements (Apr 2026)</div>
-      </div>
-      <div class="card flex-col gap-8" style="padding:20px 24px">
-        <div style="font-size:15px;color:var(--violet);font-weight:500">Eligible for VRP (subset)</div>
-        <div class="body"><strong>Cause:</strong> Capitec customers where consent-based debit may improve timing</div>
-        <div class="body"><strong>Intervention:</strong> Optional VRP enrolment for willing customers only</div>
-        <div class="label-sm" style="margin-top:auto">Current VRP: ~150 txns/month (launched Aug 2026)</div>
-        <div class="warn-text" style="font-size:11px">⚠ Do not infer willingness from Pay@ behaviour</div>
+    <!-- Three customer types -->
+    <div>
+      <div style="font-size:13px;color:var(--steel);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px">Different customers need different treatment</div>
+      <div class="grid-3">
+        <div class="card" style="padding:20px 24px">
+          <div style="font-size:16px;color:var(--white);font-weight:500;margin-bottom:8px">Failed recurring customers</div>
+          <div class="body" style="font-size:14px">Card on file no longer works. Offer card refresh or VRP in the payment link - one interaction repairs the collection arrangement.</div>
+        </div>
+        <div class="card" style="padding:20px 24px">
+          <div style="font-size:16px;color:var(--white);font-weight:500;margin-bottom:8px">Manual payers open to automation</div>
+          <div class="body" style="font-size:14px">Pay one-time but may consent to recurring. After payment, offer the option. <strong>Never auto-enrol</strong> - some use limited cards deliberately.</div>
+        </div>
+        <div class="card" style="padding:20px 24px">
+          <div style="font-size:16px;color:var(--white);font-weight:500;margin-bottom:8px">Intentional manual payers</div>
+          <div class="body" style="font-size:14px">Prefer Pay@ and rely on persistent, reusable links. Preserve their preference. Offer auto-pay only if they want it - no pressure.</div>
+        </div>
       </div>
     </div>
   </div>
   <div class="slide-num">3</div>
 </section>
 
-<!-- SLIDE 4: INTEGRATION COMPARISON -->
+<!-- ============================================================ -->
+<!-- SLIDE 4: THE OPTIONS                                          -->
+<!-- ============================================================ -->
 <section class="slide">
   <div>
-    <h1>Two integration approaches</h1>
-    <h2>Different complexity, different outcomes</h2>
+    <h1>Two approaches</h1>
+    <h2>Targeted Stitch links or a hosted page - preserving Pay@ access where needed</h2>
   </div>
-  <div style="display:grid;grid-template-rows:1fr auto;gap:16px;padding-top:24px">
-    <div class="grid-2">
+  <div style="display:grid;grid-template-rows:1fr auto;gap:16px;padding-top:28px">
+    <div class="grid-2" style="gap:28px">
       <!-- Option A -->
-      <div class="card flex-col gap-12" style="padding:24px">
-        <div style="font-size:18px;color:var(--violet);font-weight:300;font-family:'Aeonik','Inter Tight',system-ui,sans-serif">Option A: Targeted payment links</div>
-        <div>
-          <div style="font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Rain builds</div>
-          <ul class="bullet-list">
-            <li>API to create per-customer consent requests (contract ref, amount, type)</li>
-            <li>Webhook handler for payment confirmation + token storage</li>
-            <li>Billing system update to store and use new tokens</li>
-            <li>Cohort selection logic in collections workflow</li>
-          </ul>
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Stitch provides</div>
-          <ul class="bullet-list violet">
-            <li>Payment link generation API</li>
-            <li>Payment processing + token capture</li>
-            <li>Webhook delivery on payment events</li>
-          </ul>
-        </div>
-        <div style="margin-top:auto;padding-top:8px;border-top:1px solid var(--card-border)">
-          <div class="label-sm"><strong style="color:var(--amber)">Effort:</strong> Significant - billing system changes required</div>
-          <div class="label-sm"><strong>Best for:</strong> Repairing specific failed collection arrangements</div>
+      <div class="card flex-col gap-16" style="padding:28px">
+        <div style="font-size:20px;color:var(--violet-text);font-weight:300;font-family:'Aeonik','Inter Tight',system-ui,sans-serif">Option A: Targeted payment links</div>
+        <div class="body">Per-customer link with the right amount and consent type. Replaces the Pay@ link in arrears comms for selected customers.</div>
+        <ul class="bullet-list">
+          <li><strong>Best for</strong> repairing specific failed collection arrangements</li>
+          <li>Higher expected conversion - personalised amount, single step</li>
+          <li>Fits existing SMS/WhatsApp campaigns</li>
+        </ul>
+        <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--card-border)">
+          <div class="body" style="font-size:14px"><strong>Rain needs to:</strong> generate consent requests from billing, handle Stitch webhooks, store tokens for future collection</div>
         </div>
       </div>
       <!-- Option B -->
-      <div class="card flex-col gap-12" style="padding:24px">
-        <div style="font-size:18px;color:var(--violet);font-weight:300;font-family:'Aeonik','Inter Tight',system-ui,sans-serif">Option B: Shared hosted page</div>
-        <div>
-          <div style="font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Rain builds</div>
-          <ul class="bullet-list">
-            <li>Balance lookup API (real-time outstanding by billing ID)</li>
-            <li>Redirect/placement strategy from existing Pay@ URLs</li>
-            <li>Token storage from webhook</li>
-          </ul>
-        </div>
-        <div>
-          <div style="font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Stitch provides</div>
-          <ul class="bullet-list violet">
-            <li>Hosted payment page with method selection</li>
-            <li>Balance polling integration</li>
-            <li>Token capture + webhook delivery</li>
-          </ul>
-        </div>
-        <div style="margin-top:auto;padding-top:8px;border-top:1px solid var(--card-border)">
-          <div class="label-sm"><strong style="color:var(--amber)">Effort:</strong> Lighter - balance API + redirect</div>
-          <div class="label-sm"><strong style="color:var(--amber)">Risk:</strong> Customers stay on familiar Pay@ links (Andre flagged)</div>
+      <div class="card flex-col gap-16" style="padding:28px">
+        <div style="font-size:20px;color:var(--violet-text);font-weight:300;font-family:'Aeonik','Inter Tight',system-ui,sans-serif">Option B: Shared hosted page</div>
+        <div class="body">Single payment page showing the current balance and offering card, VRP, and ABSA Pay alongside existing Pay@ channels.</div>
+        <ul class="bullet-list">
+          <li><strong>Best for</strong> broader reach without per-customer integration</li>
+          <li>Lighter engineering - balance lookup API + redirect</li>
+          <li><strong>Risk:</strong> customers continue using familiar Pay@ links (Andre flagged this - persistent URLs are relied on)</li>
+        </ul>
+        <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--card-border)">
+          <div class="body" style="font-size:14px"><strong>Rain needs to:</strong> expose a balance lookup API, drive traffic to the new page, store tokens from webhooks</div>
         </div>
       </div>
     </div>
-    <!-- Zubair callout -->
-    <div class="card card-warn" style="padding:14px 24px">
-      <div style="font-size:13px;color:var(--amber);line-height:1.5">⚠ <strong>Blocker:</strong> Zubair's integration feasibility assessment is needed before scoping either option. Not yet received - flag for next steps.</div>
+    <!-- Shared note -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+      <div class="card" style="padding:16px 24px;border-color:rgba(255,255,255,0.1)">
+        <div class="body" style="font-size:14px"><strong>Both options require:</strong> Rain recognises the payment and applies the consented payment-method update to future billing. Stitch processes the payment, captures the token, and delivers a webhook confirmation.</div>
+      </div>
+      <div class="card" style="padding:16px 24px;border-color:rgba(255,255,255,0.1)">
+        <div class="body" style="font-size:14px"><strong>Pay@ stays available.</strong> Customers who prefer manual payment keep their existing links. The Stitch link is an addition for customers whose recurring arrangement needs repair - not a replacement for Pay@.</div>
+      </div>
     </div>
   </div>
   <div class="slide-num">4</div>
 </section>
 
-<!-- SLIDE 5: CUSTOMER JOURNEY -->
+<!-- ============================================================ -->
+<!-- SLIDE 5: VALUE TO RAIN + PROPOSITION                          -->
+<!-- ============================================================ -->
 <section class="slide">
   <div>
-    <h1>Customer journey: current vs proposed</h1>
-    <h2>Separated steps - payment, balance update, consent, billing update, next collection</h2>
+    <h1>The value to Rain</h1>
+    <h2>Better subsequent collections, fewer separate campaigns</h2>
   </div>
-  <div style="display:grid;grid-template-rows:auto auto 1fr;gap:20px;padding-top:24px">
-    <!-- Current -->
-    <div>
-      <div style="font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px">Current flow</div>
-      <div class="journey-row">
-        <div class="journey-step">
-          <div class="step-num muted">1</div><div class="arrow">→</div>
-          <div class="step-text">Collection fails<br><span style="color:var(--steel);font-size:11px">(batch run)</span></div>
-        </div>
-        <div class="journey-step">
-          <div class="step-num muted">2</div><div class="arrow">→</div>
-          <div class="step-text">SMS/WhatsApp<br>with Pay@ link</div>
-        </div>
-        <div class="journey-step">
-          <div class="step-num muted">3</div><div class="arrow">→</div>
-          <div class="step-text">Customer pays<br><strong>one-time via Pay@</strong></div>
-        </div>
-        <div class="journey-step">
-          <div class="step-num muted">4</div><div class="arrow">→</div>
-          <div class="step-text">Balance updated<br><span style="color:var(--steel);font-size:11px">card on file unchanged</span></div>
-        </div>
-        <div class="journey-step">
-          <div class="step-num muted">5</div>
-          <div class="step-text">Next cycle:<br><strong style="color:var(--amber)">same card retried, likely fails again</strong></div>
-        </div>
+  <div style="display:grid;grid-template-rows:auto 1fr auto;gap:28px;padding-top:32px">
+    <!-- Value cards -->
+    <div class="grid-3">
+      <div class="card flex-col gap-8" style="padding:24px">
+        <div style="font-size:17px;color:var(--white);font-weight:500">Subsequent collections improve</div>
+        <div class="body" style="font-size:14px">When a customer updates their payment method at the point of paying arrears, the next billing cycle has a working token instead of a known-failed one.</div>
+      </div>
+      <div class="card flex-col gap-8" style="padding:24px">
+        <div style="font-size:17px;color:var(--white);font-weight:500">Fewer separate card-update campaigns</div>
+        <div class="body" style="font-size:14px">Separate "Invalid Card Error" and "McCode" comms become unnecessary for customers who update via the Stitch link. Walled Garden escalation steps reduce.</div>
+      </div>
+      <div class="card flex-col gap-8" style="padding:24px">
+        <div style="font-size:17px;color:var(--white);font-weight:500">Lower retry volume</div>
+        <div class="body" style="font-size:14px">Rain runs 1.8M card attempts/month for 626K tokens. Repairing methods at the point of payment reduces failed retries in subsequent cycles.</div>
       </div>
     </div>
-    <!-- Proposed -->
-    <div>
-      <div style="font-size:12px;color:var(--violet);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px">Proposed flow</div>
-      <div class="journey-row">
-        <div class="journey-step">
-          <div class="step-num accent">1</div><div class="arrow" style="color:var(--violet)">→</div>
-          <div class="step-text">Collection fails<br><span style="color:var(--steel);font-size:11px">(batch run)</span></div>
-        </div>
-        <div class="journey-step">
-          <div class="step-num accent">2</div><div class="arrow" style="color:var(--violet)">→</div>
-          <div class="step-text">SMS/WhatsApp with<br><strong>Stitch link</strong> (personalised amount)</div>
-        </div>
-        <div class="journey-step">
-          <div class="step-num accent">3</div><div class="arrow" style="color:var(--violet)">→</div>
-          <div class="step-text">Customer pays arrears<br><strong>+ optionally updates method</strong><br><span style="color:var(--steel);font-size:11px">(card refresh or VRP consent)</span></div>
-        </div>
-        <div class="journey-step">
-          <div class="step-num accent">4</div><div class="arrow" style="color:var(--violet)">→</div>
-          <div class="step-text">Balance updated<br><strong>+ new token stored</strong><br><span style="color:var(--steel);font-size:11px">(webhook → billing system)</span></div>
-        </div>
-        <div class="journey-step">
-          <div class="step-num accent">5</div>
-          <div class="step-text">Next cycle:<br><strong style="color:var(--violet)">collection on new token</strong></div>
-        </div>
+    <!-- Proposition -->
+    <div style="display:grid;align-content:center">
+      <div class="proposition" style="padding:0 20px">
+        "<em>Resolve today's arrears and help prevent the same payment-detail problem next month.</em>"
       </div>
     </div>
-    <!-- Operational savings hypotheses -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-self:end">
-      <div class="card" style="padding:16px 20px">
-        <div style="font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Potential operational savings <span class="hyp">Hypothesis</span></div>
-        <ul class="bullet-list">
-          <li><strong>May reduce</strong> separate card-error campaigns (Invalid Card, McCode)</li>
-          <li><strong>May reduce</strong> Walled Garden escalation steps</li>
-          <li><strong>May reduce</strong> PTP follow-up cycles if working token captured</li>
-        </ul>
-      </div>
-      <div class="card" style="padding:16px 20px">
-        <div style="font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Key caveats</div>
-        <ul class="bullet-list amber">
-          <li>Step 3 combines payment + method update (currently separate campaigns)</li>
-          <li>Step 4 <strong>requires</strong> webhook integration to write token to billing</li>
-          <li><strong>Does not address</strong> the 69% insufficient-funds cause directly</li>
-          <li>Manual payers' preferences must be preserved</li>
-        </ul>
-      </div>
+    <!-- Suggested next step -->
+    <div class="card" style="padding:20px 28px;border-color:rgba(255,255,255,0.1)">
+      <div style="font-size:14px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Suggested next step</div>
+      <div class="body">An operational walkthrough with Cameron, collections ops, and billing/integration: trace 3 anonymised arrears cases end-to-end through both options to see how each fits Rain's workflow. If Rain sees value, we scope cohorts and implementation together.</div>
     </div>
   </div>
   <div class="slide-num">5</div>
 </section>
 
-<!-- SLIDE 6: PILOT DESIGN -->
+<!-- ============================================================ -->
+<!-- APPENDIX A1: DATA & DEFINITIONS                               -->
+<!-- ============================================================ -->
 <section class="slide">
   <div>
-    <h1>Pilot design</h1>
-    <h2>Controlled test with measurable outcomes</h2>
+    <div class="appendix-tag">Appendix A</div>
+    <h1>Data, definitions and evidence gaps</h1>
   </div>
   <div style="display:grid;grid-template-rows:auto 1fr;gap:20px;padding-top:24px">
-    <div class="grid-2">
-      <!-- Structure -->
-      <div class="card flex-col gap-12" style="padding:24px">
-        <div style="font-size:14px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em">Structure</div>
-        <ul class="bullet-list" style="gap:6px">
-          <li><strong>Two groups:</strong> treatment (Stitch link) vs control (existing Pay@ link)</li>
-          <li><strong>Cohort:</strong> Cards that succeeded ≥1x but failed last 2+ months</li>
-          <li><strong>Size:</strong> 5,000 per group from one billing cycle date</li>
-          <li><strong>Duration:</strong> Two subsequent billing cycles after link delivery</li>
-          <li><strong>Primary metric:</strong> Cash collected per assigned customer</li>
-        </ul>
-        <div class="warn-text" style="margin-top:auto;font-size:12px">Targets set after first cycle's data, not before</div>
-      </div>
-      <!-- Measurement -->
-      <div class="card flex-col gap-12" style="padding:24px">
-        <div style="font-size:14px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em">Measurement</div>
-        <ul class="bullet-list violet">
-          <li><strong>Cash collected per assigned customer</strong> (treatment vs control)</li>
-          <li><strong>Method capture rate</strong> (payment → stored token)</li>
-          <li><strong>Subsequent collection success</strong> (cycle 2 and 3 on new tokens)</li>
-          <li><strong>Comms volume change</strong> (retry/escalation messages sent)</li>
-          <li><strong>Customer complaints</strong> or service calls during pilot</li>
-        </ul>
-      </div>
-    </div>
-    <!-- Safeguards -->
-    <div class="grid-3" style="align-self:end">
-      <div class="card" style="padding:18px 20px">
-        <div style="font-size:12px;color:var(--violet);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Customer safeguards</div>
-        <ul class="bullet-list" style="font-size:12px">
-          <li>Preserve opt-out at every step</li>
-          <li>No auto-enrolment in VRP</li>
-          <li>Walled Garden payment restores access immediately</li>
-        </ul>
-      </div>
-      <div class="card" style="padding:18px 20px">
-        <div style="font-size:12px;color:var(--violet);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Operational safeguards</div>
-        <ul class="bullet-list" style="font-size:12px">
-          <li>Existing Pay@ links remain active</li>
-          <li>Manual payers keep current path</li>
-          <li>Rollback criteria defined before launch</li>
-        </ul>
-      </div>
-      <div class="card" style="padding:18px 20px">
-        <div style="font-size:12px;color:var(--violet);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Data safeguards</div>
-        <ul class="bullet-list" style="font-size:12px">
-          <li>Daily reconciliation: Stitch webhooks vs Rain billing state</li>
-          <li>Alert on payment-token mismatch</li>
-          <li>Weekly reporting to both teams</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="slide-num">6</div>
-</section>
-
-<!-- SLIDE 7: DECISIONS -->
-<section class="slide">
-  <div>
-    <h1>What we need from Rain</h1>
-    <h2>Three decisions and two data commitments</h2>
-  </div>
-  <div style="display:grid;grid-template-rows:1fr auto;gap:24px;padding-top:28px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-      <!-- Decisions -->
-      <div class="flex-col gap-16">
-        <div style="font-size:12px;color:var(--violet);text-transform:uppercase;letter-spacing:0.08em">Decisions required</div>
-        <div class="card flex-col gap-8" style="padding:20px 24px">
-          <div class="decision-num">1</div>
-          <div class="body"><strong>Integration path</strong> - Option A (targeted links), Option B (hosted page), or hybrid?</div>
-        </div>
-        <div class="card flex-col gap-8" style="padding:20px 24px">
-          <div class="decision-num">2</div>
-          <div class="body"><strong>Pilot cohort</strong> - Which billing cycle date and failure pattern to start with?</div>
-        </div>
-        <div class="card flex-col gap-8" style="padding:20px 24px">
-          <div class="decision-num">3</div>
-          <div class="body"><strong>Integration owner</strong> - Who on Rain's side owns the billing system changes?</div>
-        </div>
-      </div>
-      <!-- Data commitments & next steps -->
-      <div class="flex-col gap-16">
-        <div style="font-size:12px;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em">Data commitments</div>
-        <div class="card card-warn flex-col gap-12" style="padding:20px 24px">
-          <div class="body"><strong>Pay@ ↔ billing ID match</strong><br>Which failed-collection customers already pay via Pay@? Required to quantify overlap and size the real opportunity.</div>
-        </div>
-        <div class="card card-warn flex-col gap-12" style="padding:20px 24px">
-          <div class="body"><strong>Active subscriber count</strong><br>How many of the never-collected token population are genuine active subscribers vs stale records?</div>
-        </div>
-        <div style="font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.08em;margin-top:8px">Once decisions are made</div>
-        <div class="card flex-col gap-8" style="padding:16px 20px">
-          <ul class="bullet-list" style="font-size:13px">
-            <li><strong>Operational walkthrough:</strong> 3 anonymised cases end-to-end with Cameron + collections ops</li>
-            <li><strong>Integration scoping:</strong> Zubair + Rain engineering estimate effort</li>
-            <li><strong>Pilot launch:</strong> jointly defined after scoping complete (no fixed date)</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-num">7</div>
-</section>
-
-<!-- APPENDIX A1: METRIC DEFINITIONS -->
-<section class="slide">
-  <div>
-    <div class="appendix-tag">Appendix A1</div>
-    <h1>Metric definitions and sources</h1>
-  </div>
-  <div style="padding-top:28px">
     <table class="def-table">
       <tr>
         <td>626K card tokens</td>
-        <td>Unique card tokens attempted in one month's collection runs. One customer may have multiple tokens (different cards, reissued cards). <strong>Not a customer count.</strong> Source: Stitch collection data, July 2026.</td>
-      </tr>
-      <tr>
-        <td>321K failed tokens</td>
-        <td>Tokens where no successful collection occurred in the month. Includes insufficient funds, expired, auth failed, and other reasons. Source: Stitch collection data, July 2026.</td>
-      </tr>
-      <tr>
-        <td>R 153.44M Pay@ value</td>
-        <td>Total value of payments processed through Rain's Pay@ channel in July 2026. Includes all payment methods (Capitec Pay, Scan to Pay, card, Shoprite, etc.). Source: Rain Pay@ extract, July 2026.</td>
-      </tr>
-      <tr>
-        <td>R 90.91M supported methods</td>
-        <td>Subset of Pay@ value via Capitec Pay (R 72.2M), card (R 17.6M), and ABSA Pay (R 1.1M). These are methods Stitch can process. <strong>Not incremental revenue.</strong></td>
+        <td>Unique card tokens attempted in one month's collection runs. One customer may hold multiple tokens. <strong>Not a customer count.</strong> Source: Stitch collection data, Jul 2026.</td>
       </tr>
       <tr>
         <td>49% success rate</td>
-        <td>305K / 626K tokens collected successfully. Does not account for retries within the month or debit order reversals. Source: Stitch collection data, July 2026.</td>
+        <td>305K tokens collected / 626K attempted. Does not account for within-month retries. Source: Stitch collection data, Jul 2026.</td>
+      </tr>
+      <tr>
+        <td>69% insufficient funds</td>
+        <td>Dominant failure reason. The card is valid but the balance is too low when the batch runs. Auth failed (12%), expired (5%), other (14%). Source: Stitch collection data, Jul 2026.</td>
+      </tr>
+      <tr>
+        <td>R 153.44M Pay@</td>
+        <td>Total monthly Pay@ payment volume. R 90.91M via Stitch-supported methods (Capitec Pay R 72.2M, card R 17.6M, ABSA Pay R 1.1M). <strong>Payment volumes, not arrears or incremental revenue.</strong> Source: Rain Pay@ extract, Jul 2026.</td>
       </tr>
       <tr>
         <td>~150 VRP txns/month</td>
-        <td>Capitec VRP transactions processed through Stitch for Rain. Launched August 2026. Early-stage volume. Source: Stitch transaction data.</td>
+        <td>Capitec VRP transactions through Stitch for Rain. Launched Aug 2026, early-stage volume. Source: Stitch transaction data.</td>
       </tr>
     </table>
-  </div>
-  <div class="slide-num">A1</div>
-</section>
-
-<!-- APPENDIX A2: EVIDENCE GAPS -->
-<section class="slide">
-  <div>
-    <div class="appendix-tag">Appendix A2</div>
-    <h1>Evidence gaps</h1>
-    <h2>Flagged rather than filled with assumptions</h2>
-  </div>
-  <div style="padding-top:28px">
-    <div class="flex-col gap-12">
-      <div class="card" style="padding:14px 24px;border-color:var(--amber)">
-        <div class="body"><strong style="color:var(--amber)">1. Pay@ ↔ billing ID match</strong> — Unknown overlap between Pay@ payers and the failed-collection population. Cannot size the opportunity without this.</div>
-      </div>
-      <div class="card" style="padding:14px 24px;border-color:var(--amber)">
-        <div class="body"><strong style="color:var(--amber)">2. Unique customer count</strong> — 626K tokens ≠ 626K customers. True customer count requires Rain billing data. The original deck's "321K cards fail every cycle" conflates tokens with customers.</div>
-      </div>
-      <div class="card" style="padding:14px 24px;border-color:var(--amber)">
-        <div class="body"><strong style="color:var(--amber)">3. Intentional manual payers</strong> — No way to distinguish deliberate preference from necessity without Rain flagging which customers were removed from card runs by choice.</div>
-      </div>
-      <div class="card" style="padding:14px 24px;border-color:var(--amber)">
-        <div class="body"><strong style="color:var(--amber)">4. Active subscribers in never-collected pool</strong> — Unknown how many long-failed tokens represent genuine active subscribers vs stale/churned records.</div>
-      </div>
-      <div class="card" style="padding:14px 24px;border-color:var(--amber)">
-        <div class="body"><strong style="color:var(--amber)">5. VRP willingness</strong> — Capitec Pay@ volume (R 72.2M) shows the Capitec user base but does not prove willingness to consent to recurring debits.</div>
-      </div>
-      <div class="card" style="padding:14px 24px;border-color:var(--amber)">
-        <div class="body"><strong style="color:var(--amber)">6. Zubair's integration assessment</strong> — Not yet received. Required before integration effort can be scoped for either option.</div>
-      </div>
-      <div class="card" style="padding:14px 24px;border-color:var(--amber)">
-        <div class="body"><strong style="color:var(--amber)">7. DO reversal impact</strong> — If debit order collections are in scope, net success rate after reversals may differ significantly from gross (e.g. MTN: 99.9% gross → ~59% net).</div>
-      </div>
+    <div>
+      <div style="font-size:14px;color:var(--amber);font-weight:500;margin-bottom:10px">Evidence gaps</div>
+      <ul class="bullet-list amber" style="font-size:14px">
+        <li><strong>Pay@ ↔ billing ID match:</strong> overlap between Pay@ payers and failed-collection population is unknown</li>
+        <li><strong>Unique customers:</strong> 626K tokens ≠ 626K customers. True count requires Rain billing data</li>
+        <li><strong>Intentional manual payers:</strong> cannot distinguish preference from necessity without Rain flagging</li>
+        <li><strong>Never-collected tokens:</strong> unknown how many long-failed tokens are active subscribers vs stale records</li>
+        <li><strong>VRP willingness:</strong> Capitec Pay@ volume shows the user base, not consent propensity</li>
+        <li><strong>Integration feasibility:</strong> Zubair's assessment not yet received - needed before scoping</li>
+      </ul>
     </div>
   </div>
-  <div class="slide-num">A2</div>
+  <div class="slide-num">A</div>
 </section>
 
-<!-- APPENDIX A3: PAY@ BREAKDOWN -->
+<!-- ============================================================ -->
+<!-- APPENDIX A2: PAY@ CHANNEL BREAKDOWN                           -->
+<!-- ============================================================ -->
 <section class="slide">
   <div>
-    <div class="appendix-tag">Appendix A3</div>
+    <div class="appendix-tag">Appendix B</div>
     <h1>Pay@ channel breakdown</h1>
-    <h2>July 2026 Pay@ extract - R 153.44M total</h2>
+    <h2>July 2026 - R 153.44M total</h2>
   </div>
-  <div style="padding-top:28px">
+  <div style="display:grid;grid-template-rows:1fr auto;gap:16px;padding-top:28px">
     <div style="display:flex;flex-direction:column;gap:8px">
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
         <div class="bar-label">Capitec Pay</div>
         <div class="bar-track"><div class="bar-fill violet" style="width:47%"></div></div>
-        <div class="bar-val"><span style="color:var(--violet)">R 72.2M</span> <span style="color:var(--steel)">(47%)</span></div>
+        <div class="bar-val"><span style="color:var(--violet-text)">R 72.2M</span> <span style="color:var(--steel)">(47%)</span></div>
       </div>
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
         <div class="bar-label">Scan to Pay</div>
         <div class="bar-track"><div class="bar-fill steel" style="width:12%"></div></div>
         <div class="bar-val">R 18.4M <span style="color:var(--steel)">(12%)</span></div>
       </div>
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
         <div class="bar-label">Card</div>
-        <div class="bar-track"><div class="bar-fill violet" style="width:11%"></div></div>
-        <div class="bar-val"><span style="color:var(--violet)">R 17.6M</span> <span style="color:var(--steel)">(11%)</span></div>
+        <div class="bar-track"><div class="bar-fill violet" style="width:11.5%"></div></div>
+        <div class="bar-val"><span style="color:var(--violet-text)">R 17.6M</span> <span style="color:var(--steel)">(11%)</span></div>
       </div>
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
         <div class="bar-label">Cap Pay Bills</div>
         <div class="bar-track"><div class="bar-fill steel" style="width:8%"></div></div>
         <div class="bar-val">R 12.3M <span style="color:var(--steel)">(8%)</span></div>
       </div>
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
         <div class="bar-label">Shoprite</div>
         <div class="bar-track"><div class="bar-fill steel" style="width:6%"></div></div>
         <div class="bar-val">R 9.2M <span style="color:var(--steel)">(6%)</span></div>
       </div>
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
         <div class="bar-label">Pick n Pay</div>
         <div class="bar-track"><div class="bar-fill steel" style="width:4%"></div></div>
         <div class="bar-val">R 6.1M <span style="color:var(--steel)">(4%)</span></div>
       </div>
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
         <div class="bar-label">Pep</div>
         <div class="bar-track"><div class="bar-fill steel" style="width:2%"></div></div>
         <div class="bar-val">R 3.1M <span style="color:var(--steel)">(2%)</span></div>
       </div>
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
+        <div class="bar-label">Pay with EFT</div>
+        <div class="bar-track"><div class="bar-fill steel" style="width:1.2%;min-width:6px"></div></div>
+        <div class="bar-val">R 1.8M <span style="color:var(--steel)">(~1%)</span></div>
+      </div>
+      <div class="bar-row">
         <div class="bar-label">ABSA Pay</div>
-        <div class="bar-track"><div class="bar-fill violet" style="width:1%"></div></div>
-        <div class="bar-val"><span style="color:var(--violet)">R 1.1M</span> <span style="color:var(--steel)">(1%)</span></div>
+        <div class="bar-track"><div class="bar-fill violet" style="width:0.7%;min-width:4px"></div></div>
+        <div class="bar-val"><span style="color:var(--violet-text)">R 1.1M</span> <span style="color:var(--steel)">(~0.7%)</span></div>
       </div>
-      <div class="bar-row" style="grid-template-columns:120px 1fr 120px">
+      <div class="bar-row">
         <div class="bar-label">Other</div>
-        <div class="bar-track"><div class="bar-fill steel" style="width:9%"></div></div>
-        <div class="bar-val">R 13.4M <span style="color:var(--steel)">(9%)</span></div>
+        <div class="bar-track"><div class="bar-fill steel" style="width:5.5%;min-width:6px"></div></div>
+        <div class="bar-val">R 11.6M <span style="color:var(--steel)">(~8%)</span></div>
       </div>
     </div>
-    <div style="display:flex;gap:20px;margin-top:20px;font-size:12px">
-      <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;background:var(--violet);border-radius:2px"></div><span style="color:var(--titanium)">Stitch-supported method</span></div>
-      <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;background:var(--steel);border-radius:2px"></div><span style="color:var(--titanium)">Not currently Stitch-supported</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;gap:24px;font-size:13px">
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;background:var(--violet);border-radius:2px"></div><span style="color:var(--titanium)">Stitch-supported method</span></div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;background:var(--steel);border-radius:2px"></div><span style="color:var(--titanium)">Not currently Stitch-supported</span></div>
+      </div>
+      <div class="source">Source: Rain Pay@ extract, July 2026</div>
     </div>
-    <div class="source" style="margin-top:12px">Source: Rain Pay@ extract, July 2026</div>
   </div>
-  <div class="slide-num">A3</div>
+  <div class="slide-num">B</div>
 </section>
 
 <script>
