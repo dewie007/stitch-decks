@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recovering Arrears with Stitch Payment Links — rain × Stitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #000000;
+  --carbon: #1D1C1F;
+  --graphite: #2A2B2C;
+  --steel: #88878C;
+  --violet: #6E2CFF;
+  --white: #FFFFFF;
+  --platinum: #F2F2F2;
+  --silver: #DFDFDF;
+  --titanium: #CBCBCB;
+  --amber: #FF5B00;
+  --bg-dark: var(--carbon);
+  --bg-dark-card: var(--graphite);
+  --bg-dark-card-border: rgba(255,255,255,0.06);
+  --text-white: var(--white);
+  --text-muted: var(--steel);
+  --text-body-light: var(--titanium);
+  --purple: var(--violet);
+  --orange: var(--amber);
+  --divider-dark: rgba(255,255,255,0.08);
+  --slide-pad-y: 48px;
+  --slide-pad-x: 56px;
+  --card-radius: 20px;
+  --card-pad: 28px;
+  --grid-gap: 16px;
+}
+html { font-size: 16px; }
+body { margin: 0; background: #000; font-family: 'Aeonik', 'Inter', system-ui, sans-serif; }
+.slide {
+  width: 1280px; height: 720px;
+  margin: 0 auto 2px;
+  position: relative; overflow: hidden;
+  display: grid;
+}
+.slide.dark { background: var(--bg-dark); color: var(--text-white); }
+.slide.light { background: var(--platinum); color: var(--carbon); }
+@media print {
+  body { background: white; margin: 0; padding: 0; }
+  .slide {
+    page-break-after: always; page-break-inside: avoid;
+    margin: 0; box-shadow: none;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact;
+  }
+}
+/* Typography */
+.title { font-family: 'Aeonik','Inter Tight',system-ui,sans-serif; font-weight: 300; font-size: 36px; line-height: 1.15; letter-spacing: -0.02em; }
+.title.xl { font-size: 48px; font-weight: 200; }
+.subtitle { font-family: 'Aeonik','Inter Tight',system-ui,sans-serif; font-weight: 300; font-size: 22px; line-height: 1.35; color: var(--text-muted); letter-spacing: -0.01em; }
+.body-text { font-family: 'Aeonik','Inter',system-ui,sans-serif; font-weight: 400; font-size: 14px; line-height: 1.55; color: var(--text-body-light); }
+.body-text strong { font-weight: 600; color: var(--text-white); }
+.light .body-text { color: #555; }
+.light .body-text strong { color: var(--carbon); }
+.light .subtitle { color: var(--steel); }
+/* Cards */
+.card { background: var(--bg-dark-card); border: 1px solid var(--bg-dark-card-border); border-radius: var(--card-radius); padding: var(--card-pad); display: flex; flex-direction: column; }
+.light .card { background: var(--white); border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.card-title { font-family: 'Aeonik','Inter',system-ui,sans-serif; font-weight: 500; font-size: 15px; line-height: 1.35; margin-bottom: 10px; }
+.card-body { font-family: 'Aeonik','Inter',system-ui,sans-serif; font-weight: 400; font-size: 13px; line-height: 1.55; color: var(--text-body-light); }
+.light .card-body { color: #777; }
+.card-body strong { font-weight: 600; color: var(--text-white); }
+.light .card-body strong { color: var(--carbon); }
+/* Stat */
+.stat-number { font-family: 'Aeonik','Inter Tight',system-ui,sans-serif; font-weight: 200; font-size: 44px; line-height: 1; color: var(--purple); }
+.stat-number.amber { color: var(--amber); }
+.stat-label { font-family: 'Aeonik','Inter',system-ui,sans-serif; font-weight: 400; font-size: 12px; color: var(--text-body-light); margin-top: 8px; }
+.light .stat-label { color: #888; }
+/* Grids */
+.grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: var(--grid-gap); }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--grid-gap); }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--grid-gap); }
+/* Dividers */
+.divider-line { width: 100%; height: 1px; background: var(--divider-dark); }
+.light .divider-line { background: var(--silver); }
+/* Tags */
+.tag { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 500; letter-spacing: 0.03em; }
+.tag.evidence { background: rgba(110,44,255,0.15); color: var(--purple); }
+.tag.assumption { background: rgba(255,91,0,0.15); color: var(--amber); }
+.tag.proposal { background: rgba(255,255,255,0.08); color: var(--titanium); }
+.light .tag.evidence { background: rgba(110,44,255,0.1); }
+.light .tag.assumption { background: rgba(255,91,0,0.1); }
+.light .tag.proposal { background: rgba(0,0,0,0.06); color: var(--steel); }
+/* Bar chart */
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.bar-label { font-size: 11px; color: var(--titanium); width: 80px; text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; height: 18px; background: rgba(255,255,255,0.04); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 10px; font-weight: 500; color: var(--white); }
+.bar-fill.violet { background: var(--purple); }
+.bar-fill.amber { background: var(--amber); }
+.bar-fill.steel { background: var(--steel); }
+/* Process step */
+.step { display: flex; gap: 14px; align-items: flex-start; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--purple); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+.step-content { flex: 1; }
+.step-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.step-desc { font-size: 12px; color: var(--text-body-light); line-height: 1.45; }
+/* Cover */
+.cover-content { padding: var(--slide-pad-y) var(--slide-pad-x); display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
+.cover-logo-bar { display: flex; align-items: center; gap: 20px; }
+.cover-logo-bar img { height: 22px; }
+.cover-logo-bar .sep { font-family: 'Aeonik','Inter Tight',system-ui,sans-serif; font-weight: 200; font-size: 22px; color: var(--silver); }
+.cover-logo-bar .client { font-family: 'Aeonik','Inter Tight',system-ui,sans-serif; font-weight: 400; font-size: 18px; color: var(--white); }
+.cover-title { font-family: 'Aeonik','Inter Tight',system-ui,sans-serif; font-weight: 200; font-size: 46px; line-height: 1.12; color: var(--white); align-self: end; }
+.cover-title .muted { color: var(--steel); font-size: 20px; display: block; margin-top: 10px; font-weight: 300; }
+.cover-footer { display: flex; justify-content: space-between; font-size: 10px; color: var(--steel); align-self: end; padding-top: 20px; border-top: 1px solid var(--divider-dark); }
+/* Slide inner layout */
+.slide-inner { padding: 40px var(--slide-pad-x) 36px; display: grid; grid-template-rows: auto auto 1fr; gap: 0; height: 100%; }
+.title-block { margin-bottom: 4px; }
+.subtitle-block { margin-bottom: 16px; }
+.content-area { align-self: start; }
+.content-area.bottom { align-self: end; }
+/* Bullet list */
+.bullet-list { list-style: none; padding: 0; }
+.bullet-list li { position: relative; padding-left: 16px; margin-bottom: 6px; font-size: 13px; line-height: 1.5; color: var(--text-body-light); }
+.bullet-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--purple); }
+.bullet-list li strong { color: var(--white); font-weight: 600; }
+.light .bullet-list li { color: #555; }
+.light .bullet-list li strong { color: var(--carbon); }
+/* Two col */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+/* Highlight box */
+.highlight-box { background: rgba(110,44,255,0.08); border: 1px solid rgba(110,44,255,0.2); border-radius: 12px; padding: 16px 20px; }
+.highlight-box .hl-title { font-size: 13px; font-weight: 600; color: var(--purple); margin-bottom: 4px; }
+.highlight-box .hl-body { font-size: 12px; color: var(--text-body-light); line-height: 1.5; }
+.light .highlight-box { background: rgba(110,44,255,0.05); }
+.light .highlight-box .hl-body { color: #666; }
+/* Amber highlight */
+.amber-box { background: rgba(255,91,0,0.06); border: 1px solid rgba(255,91,0,0.15); border-radius: 12px; padding: 14px 18px; }
+.amber-box .ab-title { font-size: 12px; font-weight: 600; color: var(--amber); margin-bottom: 3px; }
+.amber-box .ab-body { font-size: 12px; color: var(--text-body-light); line-height: 1.45; }
+/* Mini table */
+.mini-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.mini-table th { text-align: left; padding: 6px 8px; font-weight: 500; color: var(--white); border-bottom: 1px solid var(--divider-dark); font-size: 11px; }
+.mini-table td { padding: 5px 8px; color: var(--text-body-light); border-bottom: 1px solid rgba(255,255,255,0.03); }
+.mini-table .purple { color: var(--purple); font-weight: 600; }
+.mini-table .amber-text { color: var(--amber); font-weight: 600; }
+.light .mini-table th { color: var(--carbon); border-bottom-color: var(--silver); }
+.light .mini-table td { color: #555; border-bottom-color: rgba(0,0,0,0.05); }
+/* Section label */
+.section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--purple); margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<section class="slide dark">
+  <div class="cover-content">
+    <div class="cover-logo-bar">
+      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjM2MCIgaGVpZ2h0PSIxNTUiIHZpZXdCb3g9IjAgMCAzNjAgMTU1Ij4KPHBhdGggZD0iTTAgMCBDMS4yMDEyMjI0NiAtMC4wMDA0MzgwOCAxLjIwMTIyMjQ2IC0wLjAwMDQzODA4IDIuNDI2NzEyMDQgLTAuMDAwODg1MDEgQzUuMDUwOTQ1NjcgMC4wMDA0OTg3MyA3LjY3NDg4ODc2IDAuMDE2MDE0NSAxMC4yOTkwNzIyNyAwLjAzMTczODI4IEMxMi4xMjc1MjYzIDAuMDM1NDcxODIgMTMuOTU1OTgyMzQgMC4wMzgzMTcxOCAxNS43ODQ0MzkwOSAwLjA0MDMxMzcyIEMyMC41Nzk5MjE0MSAwLjA0NzkyMzM3IDI1LjM3NTI4MTE4IDAuMDY3NTQ4OCAzMC4xNzA3MTUzMyAwLjA4OTcyMTY4IEMzNS4wNzA5MDU5OSAwLjExMDIzNzc0IDM5Ljk3MTExNjU5IDAuMTE5MzI3NzMgNDQuODcxMzM3ODkgMC4xMjkzOTQ1MyBDNTQuNDczNjA1MDYgMC4xNTA3OTczMyA2NC4wNzU3ODE1NyAwLjE4NDkwMDg4IDczLjY3Nzk3ODUyIDAuMjI3MDUwNzggQzczLjY3Nzk3ODUyIDQuNTE3MDUwNzggNzMuNjc3OTc4NTIgOC44MDcwNTA3OCA3My42Nzc5Nzg1MiAxMy4yMjcwNTA3OCBDNzIuNjQ5MjUxMjUgMTMuMjI4NDc1OCA3MS42MjA1MjM5OSAxMy4yMjk5MDA4MiA3MC41NjA2MjMxNyAxMy4yMzEzNjkwMiBDNjAuODY0MDI1MTEgMTMuMjQ4MDQxMjUgNTEuMTY3ODQ2NTkgMTMuMjkwODIxNjggNDEuNDcxNDcwODMgMTMuMzU5MTQxMzUgQzM2LjQ4NjQ1MzI1IDEzLjM5MzQyNjc5IDMxLjUwMTc0MjY0IDEzLjQxODUyMzc1IDI2LjUxNjYwMTU2IDEzLjQyMjYwNzQyIEMyMS43MDUyNTUyMiAxMy40MjY4ODcwMyAxNi44OTQ2MDE1MyAxMy40NTUzMjE2NyAxMi4wODM0NzEzIDEzLjUwMDQ4MjU2IEMxMC4yNDgzMTg3MSAxMy41MTM0NjgzNyA4LjQxMzA4MzI3IDEzLjUxNzc2MTQgNi41Nzc4OTA0IDEzLjUxMzIwNDU3IEM0LjAwNjA4MjMgMTMuNTA4MzA2MTQgMS40MzYzMDQ1NCAxMy41MzQzNTUwMyAtMS4xMzUyNTM5MSAxMy41Njc2MjY5NSBDLTEuODkzMzg4ODIgMTMuNTU5MDAxMzEgLTIuNjUxNTIzNzQgMTMuNTUwMzc1NjcgLTMuNDMyNjMyNDUgMTMuNTQxNDg4NjUgQy03LjQyNjkyMDI3IDEzLjYyODA3MTc2IC05LjE1MTIzMTExIDE0LjA4ODQ0MTA0IC0xMi4yOTQzODc4MiAxNi42MzkzNTg1MiBDLTE0LjgzNDQwNzc1IDE5Ljg4MDk2NDc0IC0xNS4wMDE5MDI0MSAyMS4zNDUzOTg5MSAtMTQuNzU1NjE1MjMgMjUuMjkzNDU3MDMgQy0xNC4wNzM5Njc1NSAyOC4zMzMyMzcyNCAtMTIuNTE5Njk4NjEgMzAuMDk0MDExMjIgLTEwLjMyMjAyMTQ4IDMyLjIyNzA1MDc4IEMtNy44NTEwMTE1NSAzMy40NjI1NTU3NSAtNi4xMzcwMzk4MSAzMy4zOTQyNjI4IC0zLjM3MjU1ODU5IDMzLjQ1MTY2MDE2IEMtMS44MjQ3MDkyNCAzMy40ODU0Mzc2MiAtMS44MjQ3MDkyNCAzMy40ODU0Mzc2MiAtMC4yNDU1OTAyMSAzMy41MTk4OTc0NiBDNC40OTU3MDQzNSAzMy41OTA5NjA5NiA5LjIzNjg0MDMxIDMzLjY0ODQ2OTA5IDEzLjk3ODUxNTYyIDMzLjY4NzAxMTcyIEMxNi40NzQxNTQwNCAzMy43MTM1NzMxMiAxOC45Njk2ODM2NSAzMy43NTQ0NDcwMyAyMS40NjQ4NDM3NSAzMy44MTAwNTg1OSBDMjUuMDY4ODkwOTEgMzMuODg5NDQxODQgMjguNjcwODM5NzYgMzMuOTIyMzY5NTMgMzIuMjc1NjM0NzcgMzMuOTQ1ODAwNzggQzMzLjM4MjIxOTM5IDMzLjk3ODc5MjcyIDM0LjQ4ODgwNDAyIDM0LjAxMTc4NDY3IDM1LjYyODkyMTUxIDM0LjA0NTc3NjM3IEM0Mi43NTY3Njk2MyAzNC4wMjc1MjM1IDQ2LjM0NTQ1NyAzMi42Njg0NTA5NiA1MS42ODA5OTk3NiAyNy45NTc5MDEgQzU3LjE3Njc3NzIxIDIzLjE5NDUyMTU0IDYyLjkyNDE3MDU5IDIyLjc2ODU0MjA1IDY5LjgzMDMyMjI3IDIyLjc5MzQ1NzAzIEM3MC42ODkyODYwNCAyMi43ODgyMTUxOCA3MS41NDgyNDk4MiAyMi43ODI5NzMzMyA3Mi40MzMyNDI4IDIyLjc3NzU3MjYzIEM3NC4yNDA5NjYwMyAyMi43NzExNzk3NyA3Ni4wNDg3MzEwMSAyMi43NzI0NTM3OSA3Ny44NTY0NDUzMSAyMi43ODEwMDU4NiBDODAuNjA0MzU5MDUgMjIuNzg5NTE2MzQgODMuMzUwMTkxNDUgMjIuNzYwNzE2NzUgODYuMDk3OTAwMzkgMjIuNzI5MDAzOTEgQzg3Ljg2Mjg3MzczIDIyLjcyNzM5MTQ5IDg5LjYyNzg1MDcxIDIyLjcyNzk3MDIgOTEuMzkyODIyMjcgMjIuNzMwOTU3MDMgQzkyLjIwNDUyMzc3IDIyLjcxOTcyMzA1IDkzLjAxNjIyNTI4IDIyLjcwODQ4OTA3IDkzLjg1MjUyMzggMjIuNjk2OTE0NjcgQzEwMC40NDI3MDE2NyAyMi43NzY0MTUxOCAxMDUuNTYxMjQ1NTMgMjQuNjU1Mjg2ODIgMTEwLjY2NjI1OTc3IDI4Ljg2NzY3NTc4IEMxMTUuNDQ1OTcwNTcgMzQuNjc2NjQ1ODUgMTE4LjMxOTAwODQ5IDQwLjU2MjgyOTE2IDExNy45NTkyMjg1MiA0OC4yMjMxNDQ1MyBDMTE2Ljk3NjY3MzU4IDU1LjIyMzg0ODQ3IDExMy43NTQ2MjYxMyA2MC4zOTM5Nzk3IDEwOC42Nzc5Nzg1MiA2NS4yMjcwNTA3OCBDMTAzLjA5NTIwNjMgNjkuMjE0NzQ1MjIgOTguMjI1NjkxOTEgNjkuMzcxODc1MzUgOTEuNTEyOTM5NDUgNjkuMzQwNTc2MTcgQzkwLjY5MzA1NTQyIDY5LjM0MDcyMjIgODkuODczMTcxMzkgNjkuMzQwODY4MjMgODkuMDI4NDQyMzggNjkuMzQxMDE4NjggQzg2LjMyMzA1MjM2IDY5LjM0MDMyMjk2IDgzLjYxNzczMTQ5IDY5LjMzMjU0NjUgODAuOTEyMzUzNTIgNjkuMzI0NzA3MDMgQzc5LjAzNDc3MDA4IDY5LjMyMjg0MTY0IDc3LjE1NzE4NjE1IDY5LjMyMTQxODMxIDc1LjI3OTYwMjA1IDY5LjMyMDQxOTMxIEM3MC4zNDEwOTE0NCA2OS4zMTY2MDM2NyA2NS40MDI2MTAzIDY5LjMwNjc4MTQ5IDYwLjQ2NDExMTMzIDY5LjI5NTcxNTMzIEM1NS40MjM0MjUyOCA2OS4yODU0ODA3NSA1MC4zODI3MzQ0NiA2OS4yODA5MTczIDQ1LjM0MjA0MTAyIDY5LjI3NTg3ODkxIEMzNS40NTQwMDcyNCA2OS4yNjUxNTgzOSAyNS41NjU5OTUzMyA2OS4yNDgwOTMzOCAxNS42Nzc5Nzg1MiA2OS4yMjcwNTA3OCBDMTUuNjc3OTc4NTIgNjUuMjY3MDUwNzggMTUuNjc3OTc4NTIgNjEuMzA3MDUwNzggMTUuNjc3OTc4NTIgNTcuMjI3MDUwNzggQzE2LjY3OTQyOTAyIDU3LjIyMTE4NDU0IDE3LjY4MDg3OTUyIDU3LjIxNTMxODMgMTguNzEyNjc3IDU3LjIwOTI3NDI5IEMyOC4xNTg3Mjk1OCA1Ny4xNTIwMTY0OSAzNy42MDQ1NTI2MiA1Ny4wNzkyMzg4MyA0Ny4wNTAzNzExNyA1Ni45OTEzMzU4NyBDNTEuOTA2MzY2NTggNTYuOTQ2NjQyODEgNTYuNzYyMjc4MjkgNTYuOTA3Mzg0MjggNjEuNjE4NDA4MiA1Ni44ODA2MTUyMyBDNjYuMzA2NDM2OTQgNTYuODU0NTcxNzIgNzAuOTk0MTQzNDQgNTYuODE0MTYxNzYgNzUuNjgxOTcyNSA1Ni43NjM4NjQ1MiBDNzcuNDY4ODUwMzIgNTYuNzQ3MjAyOTIgNzkuMjU1NzgzODYgNTYuNzM1Njg0MjQgODEuMDQyNzI4NDIgNTYuNzI5NDM2ODcgQzgzLjU0OTI1NDIyIDU2LjcxOTc4ODA1IDg2LjA1NDk1NjkzIDU2LjY5MTcyMDAzIDg4LjU2MTI3OTMgNTYuNjU5NDIzODMgQzg5LjI5NzExNzQ2IDU2LjY2MDg1ODkyIDkwLjAzMjk1NTYzIDU2LjY2MjI5NDAxIDkwLjc5MTA5MTkyIDU2LjY2Mzc3MjU4IEM5NS40NjY3MzE1NiA1Ni41Nzg3ODUxNiA5OC42OTk4MDc1MiA1NS42ODczOTkzOCAxMDIuNjc3OTc4NTIgNTMuMjI3MDUwNzggQzEwNC42MTE2NDI5NSA1MC4xNDkyNDU4IDEwNC45OTczMTM0OSA0Ni43NjEwNTI0NSAxMDQuMjYwMDA5NzcgNDMuMjE5MjM4MjggQzEwMy4yNTgwNTA3NiA0MC41NzMxODA3OSAxMDIuMjgzNzkzNTUgMzguNjIzODU0MzcgOTkuODg1MzE0OTQgMzcuMDUyODcxNyBDOTcuMzAyMzk4MDIgMzYuMDg2NTM2NTMgOTUuMjQyNTA5MDEgMzUuOTM5NTA3NjEgOTIuNDg1NTk1NyAzNS44ODg5MTYwMiBDOTEuNDUwNjE5NTEgMzUuODY2NDczMjQgOTAuNDE1NjQzMzEgMzUuODQ0MDMwNDYgODkuMzQ5MzA0MiAzNS44MjA5MDc1OSBDODguMjM1NzM1NDcgMzUuODA5MjcwNzggODcuMTIyMTY2NzUgMzUuNzk3NjMzOTcgODUuOTc0ODUzNTIgMzUuNzg1NjQ0NTMgQzg0LjgyMzA5NjMxIDM1Ljc3MTg3MjcxIDgzLjY3MTMzOTExIDM1Ljc1ODEwMDg5IDgyLjQ4NDY4MDE4IDM1Ljc0MzkxMTc0IEM4MC4wNDcwNDU5IDM1LjcyMDY0MDcgNzcuNjA5MzQ4MDIgMzUuNzAzMzc0ODIgNzUuMTcxNjMwODYgMzUuNjkxNjUwMzkgQzcxLjQ1NTEwNzk0IDM1LjY2NDc0NzE3IDY3Ljc0MTQzOTk5IDM1LjU4OTgzNjk2IDY0LjAyNTYzNDc3IDM1LjUxNDE2MDE2IEM2MS42NTQ1NjAxMyAzNS40OTc1MDA0IDU5LjI4MzQ2MzAzIDM1LjQ4MzczNDgyIDU2LjkxMjM1MzUyIDM1LjQ3MzE0NDUzIEM1NS44MDY4ODE3MSAzNS40NDMyODk2NCA1NC43MDE0MDk5MSAzNS40MTM0MzQ3NSA1My41NjI0Mzg5NiAzNS4zODI2NzUxNyBDNDcuODc2NzM5NSAzNS40MTQ4NDE3NyA0NC40ODIwNzMwNSAzNS44MDkwNDU0OSA0MC4xNDM3OTg4MyAzOS42NTY5ODI0MiBDMzkuNTU0NDc1NzEgNDAuMjc4MTE0MTcgMzguOTY1MTUyNTkgNDAuODk5MjQ1OTEgMzguMzU3OTcxMTkgNDEuNTM5MTk5ODMgQzMxLjQ5MTY1NDg3IDQ4LjQzNzYzMzggMjAuNTE1NTU5OTYgNDcuNDQyMzY1MDEgMTEuNTUwNTM3MTEgNDcuNDY3Mjg1MTYgQzkuNDQ4MDc4NzUgNDcuNDc2OTU4MyA3LjM0NjYxMjkyIDQ3LjUwODAwNTA0IDUuMjQ0Mzg0NzcgNDcuNTM5NTUwNzggQy00LjgxNTg0Nzg4IDQ3LjYxODY1NzA5IC0xMy4zMDk0MzExOSA0Ni43ODI4MDY0OCAtMjEuMzIyMDIxNDggNDAuMjI3MDUwNzggQy0yNy40Mjg0MTY0NiAzMi45OTUzNTgwOSAtMjguMDg4NzI2ODMgMjYuNTk0MTkgLTI3LjMyMjAyMTQ4IDE3LjIyNzA1MDc4IEMtMjUuNjQ1MDk5OTYgMTAuNzAwOTQyMTYgLTIwLjk0MDQyMTM0IDUuNzY4NDYxMjUgLTE1LjMyMjAyMTQ4IDIuMjI3MDUwNzggQy0xMC4xNDk1MTM5MiAwLjQ0NDc4MzQxIC01LjQyMzc5NTY1IC0wLjA1MjU4OTU2IDAgMCBaICIgZmlsbD0iI0ZGRkZGRiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjcuMzIyMDIxNDg0Mzc1LDQyLjc3Mjk0OTIxODc1KSIvPgo8cGF0aCBkPSJNMCAwIEMyLjY0IDAgNS4yOCAwIDggMCBDOC4zMyA1LjI4IDguNjYgMTAuNTYgOSAxNiBDMTAuOTggMTQuNjggMTIuOTYgMTMuMzYgMTUgMTIgQzIwLjY4MzkyMjEyIDEwLjEwNTM1OTI5IDI2Ljc2NzQ3MjMxIDEwLjEwNjk5Mzc1IDMyLjMxMjUgMTIuNSBDMzYuNzM0NTk0NjkgMTUuMjM3NDU4NjcgMzkuMjM4MDY5NSAxOC4wNTUxMzA3MSA0MSAyMyBDNDEuNjA5MTk0OTQgMjkuMDE1MDA2MjkgNDEuNDcyMzU4MTggMzQuOTYzOTk2NCA0MS4zMTI1IDQxIEM0MS4yODczODY2MiA0Mi42NDk3MDU4IDQxLjI2NDU3ODgxIDQ0LjI5OTQ0ODQgNDEuMjQ0MTQwNjIgNDUuOTQ5MjE4NzUgQzQxLjE4OTM4MjI5IDQ5Ljk2NzA2MzE2IDQxLjEwMzI4MjA3IDUzLjk4MzEyMTk4IDQxIDU4IEMzOC4zNiA1OCAzNS43MiA1OCAzMyA1OCBDMzIuOTcwMjcxIDU2LjYzODUwODMgMzIuOTcwMjcxIDU2LjYzODUwODMgMzIuOTM5OTQxNDEgNTUuMjQ5NTExNzIgQzMyLjg2MTU0MzMzIDUxLjg2MTA2ODgzIDMyLjc3NDg0MDggNDguNDczMDQ0OTggMzIuNjgyNjE3MTkgNDUuMDg0OTYwOTQgQzMyLjY0NDQ4Nzk0IDQzLjYyMjQ3ODExIDMyLjYwOTYwNzg2IDQyLjE1OTkwNjYyIDMyLjU3ODEyNSA0MC42OTcyNjU2MiBDMzIuNTMyMTIyODkgMzguNTg2OTE4NjggMzIuNDc0MTkwNTkgMzYuNDc3MTczNjYgMzIuNDE0MDYyNSAzNC4zNjcxODc1IEMzMi4zODI2NDE2IDMzLjA5OTg3NzkzIDMyLjM1MTIyMDcgMzEuODMyNTY4MzYgMzIuMzE4ODQ3NjYgMzAuNTI2ODU1NDcgQzMyLjAwMDU4MDgxIDI3LjAwNjQyNDUzIDMxLjQ0MDUwNDc2IDI0LjIyNjc1NDg4IDMwIDIxIEMyNS4zNjI3NzEwMyAxOS40NTQyNTcwMSAyMC44Mzc5NTE3NiAxOS4zODM3NDU1MyAxNiAyMCBDMTIuMDg0NTY2MTMgMjIuNjM2OTI0ODUgMTAuNjMwNzA0MTggMjUuMTk5NTc0NTQgOS40MTcyMzYzMyAyOS43MDE0MTYwMiBDOC40NzY1NDM2NCAzNC44ODM3NTc1MyA4LjUxMjU1NDQ1IDQwLjE4NDYzOTM2IDguMzc1IDQ1LjQzNzUgQzguMzE2OTkyMTkgNDcuMjUwMjQ0MTQgOC4zMTY5OTIxOSA0Ny4yNTAyNDQxNCA4LjI1NzgxMjUgNDkuMDk5NjA5MzggQzguMTY0MDA1NDIgNTIuMDY2MjU4MTcgOC4wNzgzMDc1NCA1NS4wMzI5MDgzNiA4IDU4IEM1LjM2IDU4IDIuNzIgNTggMCA1OCBDMCAzOC44NiAwIDE5LjcyIDAgMCBaICIgZmlsbD0iI0ZGRkZGRiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzE5LDQzKSIvPgo8cGF0aCBkPSJNMCAwIEMzLjYxOTU0OTAxIDIuMTM3MTE0MTggNS42MDUzNDkzNCA0LjU4NTY5ODY4IDcuNSA4LjM3NSBDOC4yNSAxMS43NSA4LjI1IDExLjc1IDguNSAxNC4zNzUgQzUuNDI2NTc1OTcgMTQuMzA0MTI0MzkgMi40ODg2ODY1MSAxNC4xMjM1MDgyNSAtMC41IDEzLjM3NSBDLTIuMjUgMTAuOTM3NSAtMi4yNSAxMC45Mzc1IC0zLjUgOC4zNzUgQy03LjQzNjMxMzI3IDUuODI3OTczNzcgLTExLjA0OTY4MjMxIDYuMzgwNjc3OTggLTE1LjUxMTcxODc1IDYuODkwNjI1IEMtMTcuNzE2ODM1MTIgNy4yNDU0MDM2NyAtMTcuNzE2ODM1MTIgNy4yNDU0MDM2NyAtMTkuNSA5LjM3NSBDLTE5LjY2Njg3NDQ4IDExLjk1ODU0MjE4IC0xOS42NjY4NzQ0OCAxMS45NTg1NDIxOCAtMTkuNSAxNC4zNzUgQy0xNC42Njk2MTAzIDE2LjU4Nzc1MTYyIC05LjY4NzE0OTY4IDE3LjI3MDI5NjU0IC00LjQ3MDcwMzEyIDE3Ljk2Njc5Njg4IEMwLjg3Nzg1OTUzIDE4LjgzMzcyMDMgMy42Mjg2OTQ5MSAyMC41NjgwMjE3MyA3LjUgMjQuMzc1IEM5LjM2OTMzMzA2IDI3LjQ2MzQ2MzMxIDkuNTAzNDk5ODkgMjkuMTgyNTA1ODIgOS40Mzc1IDMyLjgxMjUgQzguMDM2NDI5NjUgMzguMTM2NTY3MzIgNS40NjM3MDM0NSA0MS4xOTkwMTI1OCAwLjc1MzkwNjI1IDQ0LjAxOTUzMTI1IEMtNS4zODMzMzcxNyA0Ni41NzYxMDIwNCAtMTIuNjY1ODk0MTYgNDYuNDY4Nzc4NjYgLTE5LjA0Njg3NSA0NC42NDg0Mzc1IEMtMjMuMjAwNTUzNiA0Mi43Mjc3NTE1MyAtMjYuMTY3NzkyMTcgNDAuMzg2Mzk3NDggLTI4LjUgMzYuMzc1IEMtMjkuMjUgMzIuNTYyNSAtMjkuMjUgMzIuNTYyNSAtMjkuNSAyOS4zNzUgQy0yNi44NiAyOS4zNzUgLTI0LjIyIDI5LjM3NSAtMjEuNSAyOS4zNzUgQy0yMS4xMDgxMjUgMzAuMzIzNzUgLTIwLjcxNjI1IDMxLjI3MjUgLTIwLjMxMjUgMzIuMjUgQy0xOC43OTM3MDUzMyAzNS40MjcwODUyNSAtMTguNzkzNzA1MzMgMzUuNDI3MDg1MjUgLTE2LjMxMjUgMzYuNzUgQy0xMC45Njg0MTA5NCAzNy45Mzc1NzUzNSAtNS44MTA4Mjg3MyAzNy43MDI3MDcxOCAtMC41IDM2LjM3NSBDLTAuNSAzMy43MzUgLTAuNSAzMS4wOTUgLTAuNSAyOC4zNzUgQy00LjI0MTc3NDA5IDI3LjQyMTIxNDQ1IC03Ljk3MzQ5MDE3IDI2LjQ4NzY0MjczIC0xMS43NSAyNS42Nzk2ODc1IEMtMTIuODg0Mzc1IDI1LjQzNDc2NTYyIC0xNC4wMTg3NSAyNS4xODk4NDM3NSAtMTUuMTg3NSAyNC45Mzc1IEMtMTYuMjYzODY3MTkgMjQuNzExOTE0MDYgLTE3LjM0MDIzNDM3IDI0LjQ4NjMyODEyIC0xOC40NDkyMTg3NSAyNC4yNTM5MDYyNSBDLTIyLjIwODM4OTE0IDIzLjE3MDkxODYyIC0yNS4zNzIzNDQyOSAyMS44MjQ4NDMwNiAtMjcuODEyNSAxOC42ODc1IEMtMjkuMzEwNzY4NTYgMTMuNjQ3ODY5NCAtMjkuMTYzNTU5NzEgOS44MTI3MTI3MSAtMjcgNS4xMjUgQy0yMC4wNDMyNTY3NyAtMi41Mjc0MTc1NSAtOS41MDgzNTcyMiAtNC4yMjE5OTQ0NCAwIDAgWiAiIGZpbGw9IiNGRkZGRkYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5MC41LDU1LjYyNSkiLz4KPHBhdGggZD0iTTAgMCBDNC4xNzgxODU2NyAzLjI3NTA0MDc0IDcuMTc4NDUwMDggNy4zMDg4MTU0NiA4LjY2NDA2MjUgMTIuNDAyMzQzNzUgQzguNzA1MzEyNSAxMy4wNjIzNDM3NSA4Ljc0NjU2MjUgMTMuNzIyMzQzNzUgOC43ODkwNjI1IDE0LjQwMjM0Mzc1IEM1LjgxOTA2MjUgMTQuNDAyMzQzNzUgMi44NDkwNjI1IDE0LjQwMjM0Mzc1IC0wLjIxMDkzNzUgMTQuNDAyMzQzNzUgQy0wLjY0NDA2MjUgMTMuNDUzNTkzNzUgLTEuMDc3MTg3NSAxMi41MDQ4NDM3NSAtMS41MjM0Mzc1IDExLjUyNzM0Mzc1IEMtMy4wMDM5NTk1MSA4LjIwMTkyNDM4IC0zLjAwMzk1OTUxIDguMjAxOTI0MzggLTYuMjEwOTM3NSA2LjQwMjM0Mzc1IEMtMTEuNzk5MzAyIDUuNjQ2MDgzNiAtMTYuNjI4OTk1MTEgNS4yOTQ5ODQwOCAtMjEuMzM1OTM3NSA4LjU4OTg0Mzc1IEMtMjUuMDM1MDM3NTQgMTQuMTM4NDkzODEgLTI2LjA4MTA0Mjg0IDE4Ljc4MjkzNDc1IC0yNS4yMTA5Mzc1IDI1LjQwMjM0Mzc1IEMtMjMuODI1NjI3NSAzMC4xODg3MTQyNSAtMjIuMjAyNjM5NjIgMzIuNzcyOTk0MzMgLTE3Ljk2MDkzNzUgMzUuNDY0ODQzNzUgQy0xMy42NzM0MTQwNCAzNi41MzY3MjQ2MSAtMTAuNDEzMjk5NDggMzYuODY0ODAwOTYgLTYuMjEwOTM3NSAzNS40MDIzNDM3NSBDLTMuMDMyMzEzNCAzMi44MzIzOTIzNSAtMS41MDM2NTY0MSAzMS4yODA1MDA0OCAtMC4yMTA5Mzc1IDI3LjQwMjM0Mzc1IEMyLjc1OTA2MjUgMjcuNDAyMzQzNzUgNS43MjkwNjI1IDI3LjQwMjM0Mzc1IDguNzg5MDYyNSAyNy40MDIzNDM3NSBDNy41ODQ5MDYwMiAzMy4zMDI3MTA1IDUuMzk2NDc4MjQgMzcuNDI1MDAxOTYgMC43ODkwNjI1IDQxLjQwMjM0Mzc1IEMtNS42ODc4NTg4MSA0NS4zMDY3NDEzOCAtMTEuODM2NjA4NzkgNDUuMjk1NjkxIC0xOS4yMTA5Mzc1IDQ0LjQwMjM0Mzc1IEMtMjUuNjc0MzM1MzIgNDIuMDUwMTg5NjQgLTMwLjI5Nzk1NDMxIDM3LjAzNzAxMTgxIC0zMy40NjA5Mzc1IDMxLjAyNzM0Mzc1IEMtMzUuODcyNjM1MTMgMjIuNTg2NDAyMDUgLTM1LjYwNTIzNjU4IDE0LjkzNDQwOTg2IC0zMS40NjA5Mzc1IDcuMDg5ODQzNzUgQy0yMy41NDI1NzE5OSAtMi4zNjgyMDM5NCAtMTEuMzA1ODEwMTQgLTYuNTM2ODk4NDUgMCAwIFogIiBmaWxsPSIjRkZGRkZGIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDcuMjEwOTM3NSw1Ni41OTc2NTYyNSkiLz4KPHBhdGggZD0iTTAgMCBDMi42NCAwIDUuMjggMCA4IDAgQzggMy42MyA4IDcuMjYgOCAxMSBDMTEuOTYgMTEgMTUuOTIgMTEgMjAgMTEgQzIwIDEzLjY0IDIwIDE2LjI4IDIwIDE5IEMxNi4wNCAxOSAxMi4wOCAxOSA4IDE5IEM4IDI5LjIzIDggMzkuNDYgOCA1MCBDMTIuMjkgNTAgMTYuNTggNTAgMjEgNTAgQzIxIDUyLjY0IDIxIDU1LjI4IDIxIDU4IEMxOS4xMDQ0ODk3OCA1OC4wNTQ0MTY1NiAxNy4yMDg1MjA4IDU4LjA5Mjk4MDM1IDE1LjMxMjUgNTguMTI1IEMxNC4yNTY3NTc4MSA1OC4xNDgyMDMxMyAxMy4yMDEwMTU2MiA1OC4xNzE0MDYyNSAxMi4xMTMyODEyNSA1OC4xOTUzMTI1IEM3LjYxMzYyMjcgNTcuOTEzMDI1MjYgNS4wOTU0MjkwNyA1Ny4wOTA2NDE2OCAxLjg3NzE5NzI3IDUzLjg4NjQ3NDYxIEMtMC41MjgyMDY5MyA1MC4xODc4MDE5OSAtMC40NjA1NDA3NyA0Ny44OTg5MzMxOSAtMC4zOTA2MjUgNDMuNTExNzE4NzUgQy0wLjM4NDk2NTIxIDQyLjgwODUyMDA1IC0wLjM3OTMwNTQyIDQyLjEwNTMyMTM1IC0wLjM3MzQ3NDEyIDQxLjM4MDgxMzYgQy0wLjM1MTE5NzY5IDM5LjE0ODk5NzUyIC0wLjMwMTAyMzczIDM2LjkxODgyNTM5IC0wLjI1IDM0LjY4NzUgQy0wLjIyOTkyMzQzIDMzLjE2ODY0MzA5IC0wLjIxMTY3NDY4IDMxLjY0OTc2MDg0IC0wLjE5NTMxMjUgMzAuMTMwODU5MzggQy0wLjE1MTM2MzU3IDI2LjQyMDA0NDU1IC0wLjA4MjM5OTIxIDIyLjcxMDE4MjkgMCAxOSBDLTIuNjQgMTkgLTUuMjggMTkgLTggMTkgQy04IDE2LjM2IC04IDEzLjcyIC04IDExIEMtNS4zNiAxMSAtMi43MiAxMSAwIDExIEMwIDcuMzcgMCAzLjc0IDAgMCBaICIgZmlsbD0iI0ZGRkZGRiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjA4LDQzKSIvPgo8cGF0aCBkPSJNMCAwIEMyLjY0IDAgNS4yOCAwIDggMCBDOCAzLjYzIDggNy4yNiA4IDExIEMxMS45NiAxMSAxNS45MiAxMSAyMCAxMSBDMjAgMTMuNjQgMjAgMTYuMjggMjAgMTkgQzE2LjA0IDE5IDEyLjA4IDE5IDggMTkgQzggMjkuMjMgOCAzOS40NiA4IDUwIEMxMi4yOSA1MCAxNi41OCA1MCAyMSA1MCBDMjEgNTIuNjQgMjEgNTUuMjggMjEgNTggQzcuODA5NDg2MTcgNTguNTc2Mjg0NTggNy44MDk0ODYxNyA1OC41NzYyODQ1OCAzIDU1IEMtMC4xMTA3ODU0IDUwLjg4OTkzMzQ3IC0wLjM1NTgwMTUyIDQ3LjgxOTkyMjc4IC0wLjI5Mjk2ODc1IDQyLjczMDQ2ODc1IEMtMC4yODg3MjM5MSA0Mi4wNDk0NjYwOSAtMC4yODQ0NzkwNiA0MS4zNjg0NjM0NCAtMC4yODAxMDU1OSA0MC42NjY4MjQzNCBDLTAuMjYzNDA2MSAzOC41MDY2MzU0MSAtMC4yMjU3NzMxMiAzNi4zNDc0MDM1OCAtMC4xODc1IDM0LjE4NzUgQy0wLjE3MjQ0MTc0IDMyLjcxNjgxMDQyIC0wLjE1ODc1NTM0IDMxLjI0NjEwNjExIC0wLjE0NjQ4NDM4IDI5Ljc3NTM5MDYyIEMtMC4xMTM1MzIxNCAyNi4xODMyODY0MyAtMC4wNjE4MTE3MyAyMi41OTE3MzY3NCAwIDE5IEMtMi42NCAxOSAtNS4yOCAxOSAtOCAxOSBDLTggMTYuMzYgLTggMTMuNzIgLTggMTEgQy01LjM2IDExIC0yLjcyIDExIDAgMTEgQzAgNy4zNyAwIDMuNzQgMCAwIFogIiBmaWxsPSIjRkZGRkZGIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNTIsNDMpIi8+CjxwYXRoIGQ9Ik0wIDAgQzIuNjQgMCA1LjI4IDAgOCAwIEM4IDE1LjUxIDggMzEuMDIgOCA0NyBDNS4wMyA0NyAyLjA2IDQ3IC0xIDQ3IEMtMS4wMjQ2NDM0NyA0MC40NjcyMDY2MSAtMS4wNDI4MzI5MSAzMy45MzQ0NDAwMiAtMS4wNTQ5MzE2NCAyNy40MDE2MTEzMyBDLTEuMDU5OTczMTcgMjUuMTc3MzIyNjggLTEuMDY2ODA2MjMgMjIuOTUzMDM3MzcgLTEuMDc1NDM5NDUgMjAuNzI4NzU5NzcgQy0xLjA4NzUxMjk4IDE3LjUzOTIxNjkxIC0xLjA5MzIyOTk2IDE0LjM0OTcxNzcxIC0xLjA5NzY1NjI1IDExLjE2MDE1NjI1IEMtMS4xMDI4MTc1NCAxMC4xNTkxMjM2OSAtMS4xMDc5Nzg4MiA5LjE1ODA5MTEzIC0xLjExMzI5NjUxIDguMTI2NzI0MjQgQy0xLjExMzM3MjA0IDcuMjA1ODQ1MTggLTEuMTEzNDQ3NTcgNi4yODQ5NjYxMyAtMS4xMTM1MjUzOSA1LjMzNjE4MTY0IEMtMS4xMTU3NDYgNC41MjEyMTcxOSAtMS4xMTc5NjY2MSAzLjcwNjI1Mjc1IC0xLjEyMDI1NDUyIDIuODY2NTkyNDEgQy0xIDEgLTEgMSAwIDAgWiAiIGZpbGw9IiNGRkZGRkYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMiw1NCkiLz4KPHBhdGggZD0iTTAgMCBDMi45NyAwIDUuOTQgMCA5IDAgQzkgMi45NyA5IDUuOTQgOSA5IEMyLjg0NzY1NjI1IDkuMDk3NjU2MjUgMi44NDc2NTYyNSA5LjA5NzY1NjI1IDEgOSBDMCA4IDAgOCAtMC4wOTc2NTYyNSA2LjE1MjM0Mzc1IEMtMC4wNjUxMDQxNyA0LjEwMTU2MjUgLTAuMDMyNTUyMDggMi4wNTA3ODEyNSAwIDAgWiAiIGZpbGw9IiNGRkZGRkYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzMSw0MykiLz4KPC9zdmc+Cg==" alt="Stitch">
+      <span class="sep">×</span>
+      <span class="client">rain</span>
+    </div>
+    <div class="cover-title">
+      Recovering arrears through<br>Stitch payment links
+      <span class="muted">September 2026 - Discussion document</span>
+    </div>
+    <div class="cover-footer">
+      <span>Enterprise payments</span>
+      <span>Confidential</span>
+      <span>stitch.money</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 2: THE OPPORTUNITY ==================== -->
+<section class="slide dark">
+  <div class="slide-inner">
+    <div class="title-block"><div class="title">The arrears recovery opportunity</div></div>
+    <div class="subtitle-block"><div class="subtitle">R 153M flows through Pay@ monthly - most of it through channels Stitch already supports</div></div>
+    <div class="content-area" style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+      <!-- Left: Stats + bar chart -->
+      <div style="display:flex; flex-direction:column; gap: 16px;">
+        <div class="section-label"><span class="tag evidence">Evidence</span>&nbsp; July 2026 Pay@ extract</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="card" style="padding:20px;">
+            <div class="stat-number" style="font-size:36px;">R 153M</div>
+            <div class="stat-label">Total Pay@ value, July 2026</div>
+          </div>
+          <div class="card" style="padding:20px;">
+            <div class="stat-number" style="font-size:36px;">R 91M</div>
+            <div class="stat-label">Via Capitec Pay, cards & ABSA Pay</div>
+          </div>
+        </div>
+        <div class="card" style="padding:16px 20px;">
+          <div style="font-size:11px; font-weight:500; color:var(--white); margin-bottom:10px;">Pay@ by channel (top 8)</div>
+          <div class="bar-row"><div class="bar-label">Capitec Pay</div><div class="bar-track"><div class="bar-fill violet" style="width:47%;">R 72.2M (47%)</div></div></div>
+          <div class="bar-row"><div class="bar-label">Scan to Pay</div><div class="bar-track"><div class="bar-fill steel" style="width:12%;">12%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Card</div><div class="bar-track"><div class="bar-fill violet" style="width:11.4%;">R 17.6M</div></div></div>
+          <div class="bar-row"><div class="bar-label">Cap Pay Bills</div><div class="bar-track"><div class="bar-fill steel" style="width:8.3%;">8%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Shoprite</div><div class="bar-track"><div class="bar-fill steel" style="width:5.9%;">6%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Pick n Pay</div><div class="bar-track"><div class="bar-fill steel" style="width:4%;">4%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Pep</div><div class="bar-track"><div class="bar-fill steel" style="width:2.4%;">2%</div></div></div>
+          <div class="bar-row"><div class="bar-label">ABSA Pay</div><div class="bar-track"><div class="bar-fill violet" style="width:1.5%;">R 1.1M</div></div></div>
+        </div>
+      </div>
+      <!-- Right: Context cards -->
+      <div style="display:flex; flex-direction:column; gap: 12px;">
+        <div class="section-label"><span class="tag evidence">Evidence</span>&nbsp; Stitch collection data</div>
+        <div class="card" style="padding:20px;">
+          <div class="card-title" style="color:var(--amber);">The collection gap</div>
+          <div class="card-body" style="margin-top:6px;">
+            Rain runs card collections on <strong>626K cards/month</strong>. Only <strong>305K collect successfully</strong> (49%). The remaining <strong>321K cards fail every cycle</strong> - estimated <strong>R 213M/month</strong> in uncollected subscriptions.
+          </div>
+        </div>
+        <div class="card" style="padding:20px;">
+          <div class="card-title">Why collections fail</div>
+          <div class="card-body" style="margin-top:6px;">
+            <strong>69% insufficient funds</strong> - the card is real, the customer is real, but money isn't there when the batch runs. 12% auth failed. 5% expired card. The problem is overwhelmingly <strong>timing and balance</strong>, not card validity.
+          </div>
+        </div>
+        <div class="highlight-box">
+          <div class="hl-title">Key distinction</div>
+          <div class="hl-body"><strong>Capitec Pay</strong> (R 72M in Pay@) = consumer-initiated bank payment via Capitec app. <strong>Capitec VRP</strong> = consent-based recurring debit. Rain has only ~150 VRP transactions/month through Stitch (launched Aug 2026). The R 72M shows the Capitec user base that <em>could</em> be on VRP.</div>
+        </div>
+        <div class="amber-box">
+          <div class="ab-title">Assumption</div>
+          <div class="ab-body">We do not have Pay@ data matched to billing IDs. The overlap between Pay@ payers and the 321K failed-collection base is unknown. This is a critical data gap for the pilot.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 3: TWO OPTIONS ==================== -->
+<section class="slide dark">
+  <div class="slide-inner">
+    <div class="title-block"><div class="title">Two approaches to capture payment methods</div></div>
+    <div class="subtitle-block"><div class="subtitle">Targeted links for arrears recovery vs a shared hosted page alongside Pay@</div></div>
+    <div class="content-area" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+      <!-- Option A -->
+      <div class="card" style="padding:24px; border-color: rgba(110,44,255,0.3);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <div style="background:var(--purple); color:white; padding:3px 12px; border-radius:999px; font-size:12px; font-weight:600;">Option A</div>
+          <div class="card-title" style="margin:0;">Targeted Stitch payment links</div>
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list" style="margin-top:4px;">
+            <li><strong>Per-customer link</strong> generated from rain's billing system with contract reference, amount owed, and consent type (card or VRP)</li>
+            <li><strong>Replaces ${paylink}</strong> in existing SMS/WhatsApp comms for the selected cohort</li>
+            <li>Customer pays arrears <strong>and</strong> authorises future recurring collection in one step</li>
+            <li><strong>Rain engineering:</strong> API integration to create consent requests, handle webhooks, store tokens, update billing</li>
+            <li><strong>Operational:</strong> collections team selects cohort; Stitch link inserted into existing comms flow</li>
+          </ul>
+        </div>
+        <div class="highlight-box" style="margin-top:auto;">
+          <div class="hl-title">Best for</div>
+          <div class="hl-body">Failed recurring customers where rain wants to repair the collection arrangement. Higher conversion expected because the link is personalised with the right amount.</div>
+        </div>
+      </div>
+      <!-- Option B -->
+      <div class="card" style="padding:24px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <div style="background:var(--steel); color:white; padding:3px 12px; border-radius:999px; font-size:12px; font-weight:600;">Option B</div>
+          <div class="card-title" style="margin:0;">Shared hosted page with Pay@ alternatives</div>
+        </div>
+        <div class="card-body">
+          <ul class="bullet-list" style="margin-top:4px;">
+            <li><strong>Single hosted payment page</strong> that polls billing ID for the current balance (similar to existing Pay@)</li>
+            <li><strong>Offers card, Capitec VRP, and ABSA Pay</strong> alongside existing Pay@ channels</li>
+            <li>Customer chooses method; if card or VRP, Stitch captures the token for future collections</li>
+            <li><strong>Rain engineering:</strong> lighter - balance lookup API + redirect; less per-customer logic</li>
+            <li><strong>Risk:</strong> customers may continue using familiar Pay@ links and never visit the new page</li>
+          </ul>
+        </div>
+        <div class="amber-box" style="margin-top:auto;">
+          <div class="ab-title">Consideration</div>
+          <div class="ab-body">Andre noted customers reuse familiar Pay@ links because they persist and show the latest balance. A new URL needs deliberate redirection or prominent placement in comms to get adoption.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 4: OPERATIONAL FIT ==================== -->
+<section class="slide dark">
+  <div class="slide-inner">
+    <div class="title-block"><div class="title">Operational fit with rain's existing process</div></div>
+    <div class="subtitle-block"><div class="subtitle">Mapping the Stitch link into rain's current collections workflow</div></div>
+    <div class="content-area" style="display:grid; grid-template-columns: 1.2fr 1fr; gap: 24px;">
+      <!-- Left: Process steps -->
+      <div style="display:flex; flex-direction:column; gap: 10px;">
+        <div class="section-label">Process steps &amp; changes</div>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title" style="color:var(--white);">Select cohort <span class="tag proposal" style="margin-left:6px;">Change</span></div>
+            <div class="step-desc"><strong>Today:</strong> staff select failed-payment cohorts manually. <strong>Proposed:</strong> add targeting by failure reason (insufficient funds vs invalid card), bank (Capitec = VRP candidate), and arrears pattern (cycling vs chronic). <strong>Owner:</strong> collections ops + billing team.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title" style="color:var(--white);">Send comms <span class="tag evidence" style="margin-left:6px;">Existing</span></div>
+            <div class="step-desc"><strong>Today:</strong> missed-payment SMS/WhatsApp with ${paylink}. <strong>Proposed:</strong> for eligible customers, replace ${paylink} with Stitch-hosted URL. Fits the existing campaign schedule (1st/15th cohort runs). <strong>Measure:</strong> delivered → link visit → payment.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title" style="color:var(--white);">Receive payment <span class="tag proposal" style="margin-left:6px;">Change</span></div>
+            <div class="step-desc"><strong>Today:</strong> Pay@ confirms immediately, updates balance. <strong>Proposed:</strong> Stitch webhook confirms payment + token stored. Rain must handle: partial payments, pending payments, and payments through old Pay@ links. <strong>Owner:</strong> billing/integration team.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title" style="color:var(--white);">Update future payment details <span class="tag proposal" style="margin-left:6px;">New</span></div>
+            <div class="step-desc"><strong>Today:</strong> paying and updating recurring card are separate actions. <strong>Proposed:</strong> combined in one Stitch interaction. Customer explicitly authorises card refresh or VRP consent. Rain stores token for next billing cycle. <strong>Key change:</strong> this eliminates the separate card-update campaign.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title" style="color:var(--white);">Next collection <span class="tag evidence" style="margin-left:6px;">Existing</span></div>
+            <div class="step-desc">Rain runs the next monthly collection using the new token. Stitch processes as normal. If the new token also fails, the customer re-enters the standard retry/comms flow.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: What could disappear + segment logic -->
+      <div style="display:flex; flex-direction:column; gap: 12px;">
+        <div class="section-label">Manual work that could reduce</div>
+        <div class="card" style="padding:18px;">
+          <div class="card-body">
+            <ul class="bullet-list">
+              <li><strong>Separate card-error campaigns</strong> - "Invalid Card Error" and "McCode error" comms become unnecessary for customers who update via the Stitch link</li>
+              <li><strong>Walled Garden escalation steps</strong> - customers who pay + update their method in one interaction skip the multi-invoice escalation ladder</li>
+              <li><strong>PTP follow-up</strong> - if the Stitch link captures a working token, the Promise to Pay cycle is replaced by automated collection</li>
+              <li><strong>Retry volume</strong> - rain currently runs 1.8M card attempts/month for 626K cards. Repairing methods at the point of payment reduces failed retries</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-top: 4px;"><span class="tag assumption">Assumption</span>&nbsp; Segment routing</div>
+        <div class="card" style="padding:18px;">
+          <div class="card-body">
+            <ul class="bullet-list">
+              <li><strong>Capitec cards failing</strong> (170K/month at 37.8% success) → offer Capitec VRP as primary recovery path</li>
+              <li><strong>Insufficient funds on other banks</strong> → offer card refresh via Stitch link (new card or retry window)</li>
+              <li><strong>Invalid/expired cards</strong> (68K unique) → card-update link with no retry, just fresh tokenisation</li>
+              <li><strong>Intentional manual payers</strong> → preserve their Pay@ preference; offer VRP/card backup only if they opt in</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 5: CUSTOMER CHOICE ==================== -->
+<section class="slide dark">
+  <div class="slide-inner">
+    <div class="title-block"><div class="title">Respecting customer choice</div></div>
+    <div class="subtitle-block"><div class="subtitle">Three distinct populations require different treatments - not everyone should move to automated collection</div></div>
+    <div class="content-area" style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-self:start; margin-top:8px;">
+
+      <!-- Segment 1 -->
+      <div class="card" style="padding:22px; border-top: 3px solid var(--amber);">
+        <div class="card-title" style="color:var(--amber); font-size:14px;">Failed recurring customers</div>
+        <div class="stat-number" style="font-size:28px; margin:8px 0 4px;">~157K cards</div>
+        <div class="stat-label" style="margin-top:0; margin-bottom:12px;">Cycling in and out of arrears</div>
+        <div class="divider-line" style="margin-bottom:12px;"></div>
+        <div class="card-body" style="font-size:12px;">
+          <strong>Goal:</strong> recover the arrears balance and repair the recurring collection method in one interaction.<br><br>
+          <strong>Approach:</strong> Stitch link replaces Pay@ in the missed-payment SMS. Customer pays, authorises new card or VRP, and automated billing resumes.<br><br>
+          <strong>Partial payments:</strong> accept what the customer can pay; the Stitch link should handle balances correctly and still offer method update.
+        </div>
+      </div>
+
+      <!-- Segment 2 -->
+      <div class="card" style="padding:22px; border-top: 3px solid var(--purple);">
+        <div class="card-title" style="color:var(--purple); font-size:14px;">Manual payers open to automation</div>
+        <div class="stat-number" style="font-size:28px; margin:8px 0 4px;">~55K cards</div>
+        <div class="stat-label" style="margin-top:0; margin-bottom:12px;">Failed collection, paid one-time with same card</div>
+        <div class="divider-line" style="margin-bottom:12px;"></div>
+        <div class="card-body" style="font-size:12px;">
+          <strong>Goal:</strong> offer an explicit move to recurring collection - only with consent.<br><br>
+          <strong>Approach:</strong> after a successful one-time payment, present the option: "Would you like us to use this card for future payments?" Never auto-enrol.<br><br>
+          <strong>Consideration:</strong> some use low-limit or virtual cards deliberately. The card works once but would fail recurring. Respect that signal.
+        </div>
+      </div>
+
+      <!-- Segment 3 -->
+      <div class="card" style="padding:22px; border-top: 3px solid var(--steel);">
+        <div class="card-title" style="color:var(--steel); font-size:14px;">Intentional manual payers</div>
+        <div class="stat-number" style="font-size:28px; margin:8px 0 4px;">Unknown</div>
+        <div class="stat-label" style="margin-top:0; margin-bottom:12px;">Needs Pay@ data matched to billing</div>
+        <div class="divider-line" style="margin-bottom:12px;"></div>
+        <div class="card-body" style="font-size:12px;">
+          <strong>Goal:</strong> preserve their preference. Offer a backup arrangement only if they want it.<br><br>
+          <strong>Approach:</strong> leave Pay@ as the primary path. Optionally surface a "set up auto-pay" link in comms - no pressure, no walled-garden consequence.<br><br>
+          <strong>Reused links:</strong> these customers rely on persistent Pay@ URLs that fetch the latest balance. Any Stitch link must be equally persistent and intuitive.
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom highlight -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px;">
+      <div class="highlight-box">
+        <div class="hl-title">Walled Garden & restricted access</div>
+        <div class="hl-body">Customers in Walled Garden have limited service. The Stitch link must work within this restricted state - payment restores access. If the customer also updates their payment method, rain should confirm the service uplift immediately, not wait for the next billing cycle.</div>
+      </div>
+      <div class="amber-box">
+        <div class="ab-title">Outstanding question</div>
+        <div class="ab-body">How many Pay@ users are genuinely manual-by-choice vs simply lacking a working card on file? This determines the split between segments 2 and 3. Matching Pay@ billing IDs to Stitch collection records would answer this.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 6: RECOMMENDATION & PILOT ==================== -->
+<section class="slide dark">
+  <div class="slide-inner">
+    <div class="title-block"><div class="title">Recommendation and pilot design</div></div>
+    <div class="subtitle-block"><div class="subtitle">Start with Option A on a defined cohort, measure four outcomes, then decide on broader rollout</div></div>
+    <div class="content-area" style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+      <!-- Left column -->
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="section-label"><span class="tag proposal">Proposed</span>&nbsp; Pilot definition</div>
+        <div class="card" style="padding:20px;">
+          <div class="card-title">Eligible customers</div>
+          <div class="card-body" style="margin-top:6px;">
+            <ul class="bullet-list">
+              <li><strong>Cycling arrears, Capitec cards</strong> - cards that have succeeded at least once but failed the last 2+ months. Offer Capitec VRP via Stitch link</li>
+              <li><strong>Insufficient-funds failures, non-Capitec</strong> - cards failing on timing/balance. Offer card refresh via Stitch link</li>
+              <li><strong>Exclude</strong> chronic never-collected (362K cards) until we understand how many are truly active subscribers</li>
+              <li><strong>Pilot size:</strong> ~5,000-10,000 customers from the 1st-of-month cohort</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="padding:20px;">
+          <div class="card-title">Success measures</div>
+          <div class="card-body" style="margin-top:6px;">
+            <table class="mini-table">
+              <tr><th>Measure</th><th>Target</th></tr>
+              <tr><td>Arrears recovery rate</td><td class="purple">Link visit → payment > 15%</td></tr>
+              <tr><td>Method capture rate</td><td class="purple">Payment → stored token > 60%</td></tr>
+              <tr><td>Subsequent collection</td><td class="purple">Next month auto-collect > 70%</td></tr>
+              <tr><td>Comms reduction</td><td class="purple">Fewer retry/escalation messages</td></tr>
+              <tr><td>Incremental volume</td><td class="purple">New Stitch TPV from pilot</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="section-label"><span class="tag assumption">Required</span>&nbsp; Data & integration questions</div>
+        <div class="card" style="padding:20px;">
+          <div class="card-title">Before we can start</div>
+          <div class="card-body" style="margin-top:6px;">
+            <ul class="bullet-list">
+              <li><strong>Match Pay@ to billing IDs</strong> - which of the 321K failed-collection customers already pay via Pay@?</li>
+              <li><strong>Active subscriber count</strong> - how many of the 362K "never collected" cards are genuine active subscribers vs stale records?</li>
+              <li><strong>Intentional manual payers</strong> - can rain flag customers who were removed from card runs by choice?</li>
+              <li><strong>Billing system capability</strong> - can rain generate per-customer Stitch consent requests from their billing engine?</li>
+              <li><strong>Balance lookup API</strong> - can Stitch-hosted page query the customer's current outstanding balance in real time?</li>
+              <li><strong>Webhook handling</strong> - who builds the payment-confirmation + token-storage flow on rain's side?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-label"><span class="tag proposal">Proposed</span>&nbsp; Next steps</div>
+        <div class="card" style="padding:20px;">
+          <div class="card-title">Decision and next steps</div>
+          <div class="card-body" style="margin-top:6px;">
+            <ul class="bullet-list">
+              <li><strong>Operational walkthrough</strong> with Cameron, collections ops, comms owner, and billing/integration owner. Trace 3 anonymised cases end-to-end</li>
+              <li><strong>Data exchange</strong> - rain shares Pay@ extract matched to billing IDs; Stitch provides collection failure detail by contract</li>
+              <li><strong>Integration scoping</strong> - Zubair + rain engineering to estimate effort for consent-request API + webhook handler</li>
+              <li><strong>Pilot cohort selection</strong> - jointly define the first 5-10K customers by billing cycle, failure pattern, and bank</li>
+              <li><strong>Timeline target</strong> - pilot on the November 1st cohort run</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+function goTo(n) {
+  current = Math.max(0, Math.min(n, slides.length - 1));
+  slides[current].scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+  if (e.key === 'End') { e.preventDefault(); goTo(slides.length - 1); }
+});
+document.addEventListener('click', e => {
+  const x = e.clientX / window.innerWidth;
+  if (x < 0.33) goTo(current - 1); else goTo(current + 1);
+});
+</script>
+</body>
+</html>
